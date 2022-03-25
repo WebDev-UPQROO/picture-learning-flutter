@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginEmail extends StatelessWidget {
-  const LoginEmail({Key? key}) : super(key: key);
+class ExampleScreen extends StatelessWidget {
+  const ExampleScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ class Style {
   static String appName = "Picture Learning";
 
   //Colors for theme
-  static Color primary = const Color(0xFF0004FF);
+  static Color primary = const Color(0xFF11C0F9);
 
   static Color secondary = const Color(0xFFD0DC68);
 
@@ -46,7 +46,7 @@ class Style {
         primary: Style.primary,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(100),
+            Radius.circular(20),
           ),
         ),
       ),
@@ -57,7 +57,7 @@ class Style {
         primary: Style.primary,
         padding: const EdgeInsets.all(18),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100),
+          borderRadius: BorderRadius.circular(20),
         ),
         side: BorderSide(
           color: Style.primary,
@@ -72,7 +72,7 @@ class Style {
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: BorderRadius.circular(20),
       ),
     ),
     textTheme: TextTheme(

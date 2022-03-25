@@ -1,17 +1,17 @@
+import 'login_email_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
 import 'package:provider/provider.dart';
-import 'login_oauth_provider.dart';
 
-class LoginOAuthConsumer extends StatefulWidget {
-  const LoginOAuthConsumer(this.child, {Key? key}) : super(key: key);
+class LoginEmailConsumer extends StatefulWidget {
+  const LoginEmailConsumer(this.child, {Key? key}) : super(key: key);
   final Widget child;
   @override
-  State<LoginOAuthConsumer> createState() => _LoginOAuthConsumerState();
+  State<LoginEmailConsumer> createState() => _LoginEmailConsumerState();
 }
 
-class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
-  late LoginOAuthProvider notifier;
+class _LoginEmailConsumerState extends State<LoginEmailConsumer> {
+  late LoginEmailProvider notifier;
 
   void listener() {
     switch (notifier.status) {
@@ -20,23 +20,24 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
 
       case Status.loaded:
         break;
-
       default:
         break;
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
+  Widget build(BuildContext context) => widget.child;
 
   @override
   void initState() {
     super.initState();
 
-    notifier = context.read<LoginOAuthProvider>();
+    notifier = context.read<LoginEmailProvider>();
     notifier.addListener(listener);
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // Do something
+    });
   }
 
   @override

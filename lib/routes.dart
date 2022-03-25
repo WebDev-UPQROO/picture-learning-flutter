@@ -20,6 +20,14 @@ class Routes {
           ),
         );
 
+      case loginEmail:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => LoginEmailProvider(),
+            child: const LoginEmailConsumer(LoginEmailScreen()),
+          ),
+        );
+
       default:
         return MaterialPageRoute(builder: (_) => const LoginOAuthScreen());
     }
