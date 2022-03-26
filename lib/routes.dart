@@ -8,6 +8,8 @@ class Routes {
   // Auth
   static const loginOAuth = 'OAuth';
   static const loginEmail = 'email';
+  static const welcomeApp = 'welcome';
+
 
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
@@ -25,6 +27,14 @@ class Routes {
           builder: (_) => ChangeNotifierProvider(
             create: (_) => LoginEmailProvider(),
             child: const LoginEmailConsumer(LoginEmailScreen()),
+          ),
+        );
+
+        case welcomeApp:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => WelcomeAppProvider(),
+            child: const WelcomeAppConsumer(WelcomeAppScreen()),
           ),
         );
 

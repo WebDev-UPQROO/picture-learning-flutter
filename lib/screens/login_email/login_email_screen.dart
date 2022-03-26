@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/utils/validators.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
@@ -78,6 +79,7 @@ class LoginEmailScreen extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                         child: ElevatedButton.icon(
                           onPressed: () {
+                            Navigator.pushNamed(context, Routes.welcomeApp);
                             final isValid = _form.currentState!.validate();
                             if (!isValid) {
                               return;
