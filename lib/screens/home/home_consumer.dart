@@ -36,7 +36,7 @@ class _HomeConsumerState extends State<HomeConsumer> {
     notifier.addListener(listener);
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // Do something
+      notifier.getUser();
     });
   }
 

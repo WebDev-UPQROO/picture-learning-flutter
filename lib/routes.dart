@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
+import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/screens/screens.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,9 @@ class Routes {
       case loginOAuth:
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-            create: (_) => LoginOAuthProvider(),
+            create: (context) => LoginOAuthProvider(
+              context.read<LocalService>(),
+            ),
             child: const LoginOAuthConsumer(LoginOAuthScreen()),
           ),
         );
@@ -32,6 +35,7 @@ class Routes {
           builder: (_) => ChangeNotifierProvider(
             create: (context) => LoginEmailProvider(
               context.read<AuthService>(),
+              context.read<LocalService>(),
             ),
             child: const LoginEmailConsumer(LoginEmailScreen()),
           ),
@@ -62,7 +66,9 @@ class Routes {
       case home:
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-            create: (context) => HomeProvider(),
+            create: (context) => HomeProvider(
+              context.read<LocalService>(),
+            ),
             child: const HomeConsumer(HomeScreen()),
           ),
         );
