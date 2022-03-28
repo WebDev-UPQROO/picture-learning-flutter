@@ -9,4 +9,10 @@ class Lang {
   // Connection
   static const String errorTitleConnection = 'Error de conexion';
   static const String errorTextConnction = 'Verifica tu conexión a internet';
+
+  // Register
+  static const String successTextRegister =
+      'Tu cuenta ha sido creada exitosamente';
+  static const String errorTextRegisterPassword =
+      'Las contraseñas no coinciden';
 }

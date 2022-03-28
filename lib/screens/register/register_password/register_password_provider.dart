@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:picture_learning/constants/lang.dart';
 import 'package:picture_learning/models/error.dart';
 import 'package:picture_learning/models/message.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/status.dart';
 
-class LoginEmailProvider with ChangeNotifier {
-  LoginEmailProvider(this.authService);
+class RegisterPasswordProvider with ChangeNotifier {
+  RegisterPasswordProvider(this.authService);
 
   // Services
   AuthService authService;
@@ -14,13 +15,14 @@ class LoginEmailProvider with ChangeNotifier {
   MessageUI? message;
   Status status = Status.initial;
 
-  void postLogin(String email, String password) async {
+  void postUser(String username, String email, String password) async {
     try {
       status = Status.loading;
       notifyListeners();
 
-      await authService.loginEmail(email, password);
+      await authService.register(username, email, password);
 
+      message = MessageSuccess(message: Lang.successTextRegister);
       status = Status.finished;
     } catch (e) {
       message = ErrorC.errorHandler(e);

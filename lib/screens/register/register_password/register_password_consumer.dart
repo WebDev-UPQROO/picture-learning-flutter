@@ -1,3 +1,7 @@
+import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/utils/dialog_loading.dart';
+import 'package:picture_learning/utils/snackbar.dart';
+
 import 'register_password_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
@@ -17,10 +21,20 @@ class _RegisterPasswordConsumerState extends State<RegisterPasswordConsumer> {
   void listener() {
     switch (notifier.status) {
       case Status.loading:
+        dialogLoading(context);
         break;
 
-      case Status.loaded:
+      case Status.error:
+        Navigator.pop(context);
+        snackbarError(context, notifier.message!.description);
         break;
+
+      case Status.finished:
+        Navigator.pop(context);
+        Navigator.pushNamed(context, Routes.loginEmail);
+        snackbarSuccess(context, notifier.message!.description);
+        break;
+
       default:
         break;
     }

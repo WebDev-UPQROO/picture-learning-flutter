@@ -15,23 +15,30 @@ class AuthServ implements AuthService {
       Uri.parse('${API.auth}/login'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        "email": email,
-        "password": password,
+        "email": email.trim(),
+        "password": password.trim(),
       }),
     );
+
     return User.fromMap(ResponseAPI.getData(response, 'user'));
   }
 
   @override
-  Future<String> register(
+  Future<void> register(
     String username,
     String email,
     String password,
   ) async {
-    final response = await httpClient.get(
+    final response = await httpClient.post(
       Uri.parse('${API.auth}/register'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        "email": email.trim(),
+        "username": username.trim(),
+        "password": password.trim(),
+      }),
     );
 
-    return ResponseAPI.getData(response, 'user');
+    ResponseAPI.getData(response, 'user');
   }
 }

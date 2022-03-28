@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/screens/screens.dart';
+import 'package:picture_learning/utils/validators.dart';
 import 'package:picture_learning/widgets/form/form_auth.dart';
 
 class RegisterEmailScreen extends StatelessWidget {
@@ -18,13 +20,27 @@ class RegisterEmailScreen extends StatelessWidget {
           height: size.height * 0.4,
         ),
       ),
+
+      // Username
       label1: 'Nombre de usuario',
       icon1: const Icon(Icons.person_outline),
+
+      // Email
       label2: 'Correo Electrónico',
       icon2: const Icon(Icons.email_outlined),
+      validator2: validateEmail,
+      textInputType2: TextInputType.emailAddress,
+
+      // Submit
       submitText: 'Continuar',
-      submitFunction: (String email, String password) {
-        Navigator.pushNamed(context, Routes.registerPassword);
+      submitFunction: (String username, String email) {
+        final arg = RegisterPasswordScreenResponse(username, email);
+
+        Navigator.pushNamed(
+          context,
+          Routes.registerPassword,
+          arguments: arg,
+        );
       },
     );
   }

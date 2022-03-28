@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:picture_learning/constants/lang.dart';
 
 import 'package:picture_learning/constants/style.dart';
+import 'package:picture_learning/utils/snackbar.dart';
 import 'package:picture_learning/utils/validators.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
@@ -28,6 +30,7 @@ class FormAuth extends StatefulWidget {
     this.textInputType2,
 
     // Submit
+    this.compareFields = false,
     required this.submitText,
     required this.submitFunction,
   }) : super(key: key);
@@ -46,6 +49,7 @@ class FormAuth extends StatefulWidget {
   final Function(String?)? validator2;
   final TextInputType? textInputType2;
 
+  final bool compareFields;
   final String submitText;
   final Function(String, String) submitFunction;
 
@@ -68,6 +72,7 @@ class _FormAuthState extends State<FormAuth> {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
+            // Header
             widget.imgHeader,
             Align(
               alignment: Alignment.bottomCenter,
@@ -79,6 +84,8 @@ class _FormAuthState extends State<FormAuth> {
                 ),
               ),
             ),
+
+            // Form
             Form(
               key: form,
               child: SafeArea(
@@ -88,6 +95,7 @@ class _FormAuthState extends State<FormAuth> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        // Input 1
                         TextMdBoldGrey800(widget.label1),
                         const SizedBox(height: 10),
                         TextFormField(
@@ -104,6 +112,8 @@ class _FormAuthState extends State<FormAuth> {
                           ),
                         ),
                         SizedBox(height: size.height * 0.05),
+
+                        // Input 2
                         TextMdBoldGrey800(widget.label2),
                         const SizedBox(height: 10),
                         TextFormField(
@@ -120,6 +130,8 @@ class _FormAuthState extends State<FormAuth> {
                           ),
                         ),
                         const Spacer(),
+
+                        // Submit
                         Directionality(
                           textDirection: TextDirection.rtl,
                           child: ElevatedButton.icon(
@@ -127,6 +139,16 @@ class _FormAuthState extends State<FormAuth> {
                               final isValid = form.currentState!.validate();
 
                               if (!isValid) {
+                                return;
+                              }
+
+                              if (widget.compareFields &&
+                                  textController1.text !=
+                                      textController2.text) {
+                                snackbarError(
+                                  context,
+                                  Lang.errorTextRegisterPassword,
+                                );
                                 return;
                               }
 

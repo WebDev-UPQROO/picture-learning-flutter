@@ -25,12 +25,12 @@ class _LoginEmailConsumerState extends State<LoginEmailConsumer> {
 
       case Status.error:
         Navigator.pop(context);
-        snackbarError(context, notifier.message!);
+        snackbarError(context, notifier.message!.description);
         break;
 
       case Status.finished:
         Navigator.pop(context);
-        Navigator.pushNamed(context, Routes.initialRoute);
+        Navigator.pushNamed(context, Routes.home);
         break;
 
       default:

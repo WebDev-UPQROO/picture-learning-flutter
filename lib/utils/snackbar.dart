@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/models/message.dart';
 
-snackbarError(BuildContext context, MessageUI error) {
+snackbarError(BuildContext context, String error) {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
   final snackBar = SnackBar(
     backgroundColor: Style.danger,
-    content: Text((error.description)),
+    content: Text((error)),
     action: SnackBarAction(
       textColor: Style.white,
       label: 'Cerrar',
@@ -19,12 +18,12 @@ snackbarError(BuildContext context, MessageUI error) {
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
-snackbarSuccess(BuildContext context, MessageUI error) {
+snackbarSuccess(BuildContext context, String message) {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
   final snackBar = SnackBar(
     backgroundColor: Style.success,
-    content: Text((error.description)),
+    content: Text((message)),
     action: SnackBarAction(
       textColor: Style.white,
       label: 'Cerrar',

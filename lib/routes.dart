@@ -13,6 +13,9 @@ class Routes {
   static const registerEmail = 'registerEmail';
   static const registerPassword = 'registerPassword';
 
+  // Home
+  static const home = 'home';
+
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
       // Auth
@@ -43,10 +46,24 @@ class Routes {
         );
 
       case registerPassword:
+        final args = settings.arguments as RegisterPasswordScreenResponse;
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-            create: (_) => RegisterPasswordProvider(),
-            child: const RegisterPasswordConsumer(RegisterPasswordScreen()),
+            create: (context) => RegisterPasswordProvider(
+              context.read<AuthService>(),
+            ),
+            child: RegisterPasswordConsumer(RegisterPasswordScreen(
+              username: args.username,
+              email: args.email,
+            )),
+          ),
+        );
+
+      case home:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (context) => HomeProvider(),
+            child: const HomeConsumer(HomeScreen()),
           ),
         );
 
