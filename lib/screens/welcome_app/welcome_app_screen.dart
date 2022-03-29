@@ -28,21 +28,22 @@ class WelcomeAppScreen extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            right: size.width * 0.15,
+            top: size.height * 0.08,
+            child: Image.asset(
+              'assets/img/welcome_man.png',
+              height: size.height * 0.43,
+            ),
+          ),
           const Spacer(),
           SafeArea(
             child: Gap04(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Positioned(
-                    right: size.width * 0.05,
-                    top: size.height * 0.07,
-                    child: Image.asset(
-                      'assets/img/welcome_man.png',
-                      height: size.height * 0.43,
-                    ),
-                  ),
+                  SizedBox(height: size.height * 0.45),
                   Text(
                     'Bienvenido',
                     textAlign: TextAlign.center,
@@ -77,8 +78,6 @@ class WelcomeAppScreen extends StatelessWidget {
                     ),
                     
                   ),
-                  
-                
 
                 ],
               ),
