@@ -15,9 +15,9 @@ class Style {
   static Color grey800 = const Color(0xff484848);
   static Color black = const Color(0xff000000);
 
-  static Color success = const Color(0xFF00FD3F);
+  static Color success = const Color(0xFF149B53);
   static Color alert = const Color(0xFFCFFD00);
-  static Color danger = const Color(0xFFE53F29);
+  static Color danger = const Color(0xFF9B1D14);
 
   static Color shadow = const Color(0xFFCCCCCC).withOpacity(0.5);
 
