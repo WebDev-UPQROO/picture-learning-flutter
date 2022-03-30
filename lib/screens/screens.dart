@@ -7,6 +7,10 @@ export 'login_email/login_email_screen.dart';
 export 'login_email/login_email_provider.dart';
 export 'login_email/login_email_consumer.dart';
 
+export 'welcome_app/welcome_app_screen.dart';
+export 'welcome_app/welcome_app_provider.dart';
+export 'welcome_app/welcome_app_consumer.dart';
+
 export './register/register_email/register_email_screen.dart';
 export './register/register_email/register_email_provider.dart';
 export './register/register_email/register_email_consumer.dart';

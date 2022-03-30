@@ -10,6 +10,8 @@ class Routes {
   // Auth
   static const loginOAuth = 'OAuth';
   static const loginEmail = 'email';
+  static const welcomeApp = 'welcome';
+
 
   static const registerEmail = 'registerEmail';
   static const registerPassword = 'registerPassword';
@@ -38,6 +40,14 @@ class Routes {
               context.read<LocalService>(),
             ),
             child: const LoginEmailConsumer(LoginEmailScreen()),
+          ),
+        );
+
+      case welcomeApp:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+          create: (_) => WelcomeAppProvider(),
+          child: const WelcomeAppConsumer(WelcomeAppScreen()),
           ),
         );
 

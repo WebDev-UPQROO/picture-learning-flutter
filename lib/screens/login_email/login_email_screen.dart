@@ -3,6 +3,7 @@ import 'package:picture_learning/screens/screens.dart';
 import 'package:picture_learning/utils/validators.dart';
 import 'package:picture_learning/widgets/form/form_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:picture_learning/routes.dart';
 
 class LoginEmailScreen extends StatelessWidget {
   const LoginEmailScreen({Key? key}) : super(key: key);
@@ -34,6 +35,7 @@ class LoginEmailScreen extends StatelessWidget {
       submitText: 'Iniciar Sesión',
       submitFunction: (String email, String password) {
         context.read<LoginEmailProvider>().postLogin(email, password);
+        Navigator.pushNamed(context, Routes.welcomeApp);
       },
     );
   }
