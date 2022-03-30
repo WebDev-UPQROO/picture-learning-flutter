@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/utils/validators.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
-import 'package:picture_learning/widgets/text/text_md_w500_grey600.dart';
-
 //for storing form state.
 class WelcomeAppScreen extends StatelessWidget {
   const WelcomeAppScreen({Key? key}) : super(key: key);
