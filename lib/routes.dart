@@ -5,7 +5,7 @@ import 'package:picture_learning/screens/screens.dart';
 import 'package:provider/provider.dart';
 
 class Routes {
-  static const String initialRoute = loginOAuth;
+  static const String initialRoute = home;
 
   // Auth
   static const loginOAuth = 'OAuth';
@@ -69,7 +69,7 @@ class Routes {
             create: (context) => HomeProvider(
               context.read<LocalService>(),
             ),
-            child: const HomeConsumer(HomeScreen()),
+            child: HomeConsumer(HomeScreen()),
           ),
         );
 
