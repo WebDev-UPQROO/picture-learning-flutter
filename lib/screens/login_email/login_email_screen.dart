@@ -35,7 +35,6 @@ class LoginEmailScreen extends StatelessWidget {
       submitText: 'Iniciar Sesión',
       submitFunction: (String email, String password) {
         context.read<LoginEmailProvider>().postLogin(email, password);
-        Navigator.pushNamed(context, Routes.welcomeApp);
       },
     );
   }

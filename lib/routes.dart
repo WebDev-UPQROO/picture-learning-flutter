@@ -5,13 +5,12 @@ import 'package:picture_learning/screens/screens.dart';
 import 'package:provider/provider.dart';
 
 class Routes {
-  static const String initialRoute = home;
+  static const String initialRoute = loginOAuth;
 
   // Auth
   static const loginOAuth = 'OAuth';
   static const loginEmail = 'email';
   static const welcomeApp = 'welcome';
-
 
   static const registerEmail = 'registerEmail';
   static const registerPassword = 'registerPassword';
@@ -46,8 +45,8 @@ class Routes {
       case welcomeApp:
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-          create: (_) => WelcomeAppProvider(),
-          child: const WelcomeAppConsumer(WelcomeAppScreen()),
+            create: (_) => WelcomeAppProvider(),
+            child: const WelcomeAppConsumer(WelcomeAppScreen()),
           ),
         );
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
+import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/utils/dialog_loading.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,23 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
 
       case Status.loaded:
         Navigator.pop(context);
+        if (notifier.firstTime) {
+          notifier.putFirstTime();
+        } else {
+          notifier.getIsUser();
+        }
+        break;
+
+      case Status.validated:
+        Navigator.pop(context);
+        if (notifier.isUser == true) {
+          Navigator.pushReplacementNamed(context, Routes.home);
+        }
+        break;
+
+      case Status.finished:
+        Navigator.pop(context);
+        Navigator.pushNamed(context, Routes.welcomeApp);
         break;
 
       case Status.error:
@@ -48,7 +66,7 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
     notifier.addListener(listener);
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      notifier.cleanLocalStorage();
+      notifier.getFirstTime();
     });
   }
 
