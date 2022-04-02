@@ -23,7 +23,7 @@ class HomeProvider with ChangeNotifier {
 
       user = await localService.getUser();
 
-      status = Status.finished;
+      status = Status.loaded;
     } catch (e) {
       message = ErrorC.errorHandler(e);
       status = Status.error;
