@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
+import 'package:picture_learning/screens/credits/credits_screen.dart';
 import 'package:picture_learning/screens/screens.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,7 @@ class Routes {
 
   // Home
   static const home = 'home';
+  static const credits = 'credits';
 
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
@@ -80,6 +82,11 @@ class Routes {
             ),
             child: HomeConsumer(HomeScreen()),
           ),
+        );
+
+      case credits:
+        return MaterialPageRoute(
+          builder: (_) => CreditsScreen(),
         );
 
       default:

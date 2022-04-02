@@ -33,13 +33,23 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Nombre de usuario',
                     subtitle: 'hiram',
                     action: const SettingsTileEdit(),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialogEditUserName(
+                        context,
+                        () {},
+                      );
+                    },
                   ),
                   SettingsTile(
                     title: 'Contraseña',
                     subtitle: '********',
                     action: const SettingsTileEdit(),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialogEditPassword(
+                        context,
+                        () {},
+                      );
+                    },
                   ),
                 ],
               ),
@@ -64,16 +74,18 @@ class SettingsScreen extends StatelessWidget {
               ),
 
               // About us
-              SettingsSection(
-                title: 'Acerca de nosotros',
-                options: [
-                  SettingsTile(
-                    title: 'Créditos',
-                    subtitle: 'Mas iformación acerca del equipo de desarollo',
-                    onPressed: () {},
-                  ),
-                ],
-              ),
+              // SettingsSection(
+              //   title: 'Acerca de nosotros',
+              //   options: [
+              //     SettingsTile(
+              //       title: 'Créditos',
+              //       subtitle: 'Mas iformación acerca del equipo de desarollo',
+              //       onPressed: () {
+              //         Navigator.pushNamed(context, Routes.credits);
+              //       },
+              //     ),
+              //   ],
+              // ),
 
               // Close
               Padding(
@@ -91,6 +103,134 @@ class SettingsScreen extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+  Future<dynamic> showDialogEditUserName(
+    BuildContext context,
+    Function() onPressed,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        final _form = GlobalKey<FormState>();
+        final TextEditingController username = TextEditingController();
+
+        return AlertDialog(
+          titleTextStyle: TextStyle(
+            color: Style.grey800,
+            fontSize: Style.h4,
+          ),
+          contentTextStyle: TextStyle(color: Style.grey600),
+          title: const Text('Nombre de usuario'),
+          content: SingleChildScrollView(
+            child: Form(
+              key: _form,
+              child: ListBody(
+                children: <Widget>[
+                  const Text('Cambiar nombre de usuario'),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: username,
+                    decoration: const InputDecoration(
+                      labelText: 'Nombre de usuario',
+                    ),
+                    validator: (text) {
+                      return (!(text!.length > 5))
+                          ? "*Campo obligatorio"
+                          : null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                final isValid = _form.currentState!.validate();
+                if (!isValid) {
+                  return;
+                }
+                onPressed();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<dynamic> showDialogEditPassword(
+    BuildContext context,
+    Function() onPressed,
+  ) {
+    final _form = GlobalKey<FormState>();
+
+    final TextEditingController password1 = TextEditingController();
+    final TextEditingController password2 = TextEditingController();
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          titleTextStyle: TextStyle(
+            color: Style.grey800,
+            fontSize: Style.h4,
+          ),
+          contentTextStyle: TextStyle(color: Style.grey600),
+          title: const Text('Contraseña'),
+          content: SingleChildScrollView(
+            child: Form(
+              key: _form,
+              child: ListBody(
+                children: <Widget>[
+                  const Text('Cambiar contaseña'),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: password1,
+                    obscureText: true,
+                    validator: (text) {
+                      return (!(text!.length > 8))
+                          ? "*Mínimo 8 caracteres"
+                          : null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Contraseña nueva',
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: password2,
+                    obscureText: true,
+                    validator: (text) {
+                      return (password1.text != text)
+                          ? "*Las contraseñas no coinciden"
+                          : null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Confirmar contraseña',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                final isValid = _form.currentState!.validate();
+                if (!isValid) {
+                  return;
+                }
+                onPressed();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

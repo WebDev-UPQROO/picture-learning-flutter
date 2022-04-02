@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
 
-class AppBarLight extends StatelessWidget {
+class AppBarLight extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  get preferredSize => Size.fromHeight(70);
+
   const AppBarLight({
     Key? key,
     required this.title,
@@ -13,6 +16,8 @@ class AppBarLight extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Style.white,
+      foregroundColor: Style.grey800,
+      elevation: 1,
       centerTitle: true,
       toolbarHeight: 70,
       title: Text(

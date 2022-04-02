@@ -20,6 +20,7 @@ class MainScreen extends StatelessWidget {
             backgroundColor: Style.white,
             foregroundColor: Style.grey600,
             toolbarHeight: 70,
+            elevation: 1,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
