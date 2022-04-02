@@ -1,37 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:picture_learning/routes.dart';
-import 'package:picture_learning/screens/home/home_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:picture_learning/constants/style.dart';
+import 'package:picture_learning/screens/credits/credits_screen.dart';
+import 'screens/index.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+  int currentNavIndex = 0;
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    final user = context.watch<HomeProvider>().user;
+    final List<Widget> currentScreen = [
+      const MainScreen(),
+      const CommentsScreen(),
+      const CreditsScreen(),
+      const SettingsScreen(),
+    ];
 
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
-      body: SafeArea(
-        child: SizedBox(
-          width: size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('${user?.email}'),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.initialRoute);
-                },
-                child: Text('Salir'),
-              )
-            ],
-          ),
+      bottomNavigationBar: SizedBox(
+        height: 70,
+        child: BottomNavigationBar(
+          currentIndex: widget.currentNavIndex,
+          onTap: (index) {
+            widget.currentNavIndex = index;
+            setState(() {});
+          },
+          selectedFontSize: Style.textsm,
+          showUnselectedLabels: false,
+          unselectedFontSize: Style.textxs,
+          unselectedItemColor: Style.grey600,
+          selectedItemColor: Style.primary,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_filled,
+                size: 28,
+              ),
+              label: 'Inicio',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.comment,
+                size: 28,
+              ),
+              label: 'Comentarios',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.people_sharp,
+                size: 28,
+              ),
+              label: 'Sobre Nosotros',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.settings,
+                size: 28,
+              ),
+              label: 'Configuraciones',
+            ),
+          ],
         ),
       ),
+      body: currentScreen[widget.currentNavIndex],
     );
   }
 }

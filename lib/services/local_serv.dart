@@ -6,6 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalServ implements LocalService {
   @override
+  Future<bool> isUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? user = prefs.getString('user');
+
+    return user?.isNotEmpty ?? false;
+  }
+
+  @override
   Future<User> getUser() async {
     final prefs = await SharedPreferences.getInstance();
     final String? user = prefs.getString('user');
@@ -27,5 +35,17 @@ class LocalServ implements LocalService {
   Future<void> deleteUser() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('user');
+  }
+
+  @override
+  Future<void> putFirstTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('firstTime', false);
+  }
+
+  @override
+  Future<bool> getFirstTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('firstTime') ?? true;
   }
 }

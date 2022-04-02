@@ -20,7 +20,7 @@ class AuthServ implements AuthService {
       }),
     );
 
-    return User.fromMap(ResponseAPI.getData(response, 'user'));
+    return User.fromMap(ResponseAPI.getData(response));
   }
 
   @override
@@ -39,6 +39,6 @@ class AuthServ implements AuthService {
       }),
     );
 
-    ResponseAPI.getData(response, 'user');
+    ResponseAPI.getData(response);
   }
 }

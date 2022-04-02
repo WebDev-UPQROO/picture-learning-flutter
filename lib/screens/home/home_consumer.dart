@@ -1,3 +1,5 @@
+import 'package:picture_learning/utils/dialog_loading.dart';
+
 import 'home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
@@ -16,9 +18,11 @@ class _HomeConsumerState extends State<HomeConsumer> {
   void listener() {
     switch (notifier.status) {
       case Status.loading:
+        dialogLoading(context);
         break;
 
       case Status.loaded:
+        Navigator.pop(context);
         break;
       default:
         break;
