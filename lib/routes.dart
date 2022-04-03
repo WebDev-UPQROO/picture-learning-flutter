@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:picture_learning/models/services/auth_service.dart';
+import 'package:picture_learning/models/services/local_service.dart';
+import 'package:picture_learning/screens/credits/credits_screen.dart';
 import 'package:picture_learning/screens/screens.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +11,14 @@ class Routes {
   // Auth
   static const loginOAuth = 'OAuth';
   static const loginEmail = 'email';
+  static const welcomeApp = 'welcome';
+
+  static const registerEmail = 'registerEmail';
+  static const registerPassword = 'registerPassword';
+
+  // Home
+  static const home = 'home';
+  static const credits = 'credits';
 
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
@@ -15,7 +26,9 @@ class Routes {
       case loginOAuth:
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-            create: (_) => LoginOAuthProvider(),
+            create: (context) => LoginOAuthProvider(
+              context.read<LocalService>(),
+            ),
             child: const LoginOAuthConsumer(LoginOAuthScreen()),
           ),
         );
@@ -23,9 +36,57 @@ class Routes {
       case loginEmail:
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-            create: (_) => LoginEmailProvider(),
+            create: (context) => LoginEmailProvider(
+              context.read<AuthService>(),
+              context.read<LocalService>(),
+            ),
             child: const LoginEmailConsumer(LoginEmailScreen()),
           ),
+        );
+
+      case welcomeApp:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => WelcomeAppProvider(),
+            child: const WelcomeAppConsumer(WelcomeAppScreen()),
+          ),
+        );
+
+      case registerEmail:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => RegisterEmailProvider(),
+            child: const RegisterEmailConsumer(RegisterEmailScreen()),
+          ),
+        );
+
+      case registerPassword:
+        final args = settings.arguments as RegisterPasswordScreenResponse;
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (context) => RegisterPasswordProvider(
+              context.read<AuthService>(),
+            ),
+            child: RegisterPasswordConsumer(RegisterPasswordScreen(
+              username: args.username,
+              email: args.email,
+            )),
+          ),
+        );
+
+      case home:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (context) => HomeProvider(
+              context.read<LocalService>(),
+            ),
+            child: HomeConsumer(HomeScreen()),
+          ),
+        );
+
+      case credits:
+        return MaterialPageRoute(
+          builder: (_) => CreditsScreen(),
         );
 
       default:
