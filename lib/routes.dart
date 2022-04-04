@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/screens/credits/credits_screen.dart';
@@ -25,8 +26,8 @@ class Routes {
       // Auth
       case loginOAuth:
         return MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-            create: (context) => LoginOAuthProvider(
+          builder: (_) => BlocProvider(
+            create: (context) => OAuthCubit(
               context.read<LocalService>(),
             ),
             child: const LoginOAuthConsumer(LoginOAuthScreen()),
@@ -35,8 +36,8 @@ class Routes {
 
       case loginEmail:
         return MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-            create: (context) => LoginEmailProvider(
+          builder: (_) => BlocProvider(
+            create: (context) => EmailCubit(
               context.read<AuthService>(),
               context.read<LocalService>(),
             ),
@@ -46,25 +47,20 @@ class Routes {
 
       case welcomeApp:
         return MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-            create: (_) => WelcomeAppProvider(),
-            child: const WelcomeAppConsumer(WelcomeAppScreen()),
-          ),
+          builder: (_) => WelcomeAppScreen(),
         );
 
       case registerEmail:
         return MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-            create: (_) => RegisterEmailProvider(),
-            child: const RegisterEmailConsumer(RegisterEmailScreen()),
-          ),
+          builder: (_) => (RegisterEmailScreen()),
         );
 
       case registerPassword:
         final args = settings.arguments as RegisterPasswordScreenResponse;
+
         return MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-            create: (context) => RegisterPasswordProvider(
+          builder: (_) => BlocProvider(
+            create: (context) => PasswordCubit(
               context.read<AuthService>(),
             ),
             child: RegisterPasswordConsumer(RegisterPasswordScreen(
@@ -76,8 +72,8 @@ class Routes {
 
       case home:
         return MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-            create: (context) => HomeProvider(
+          builder: (_) => BlocProvider(
+            create: (context) => HomeCubit(
               context.read<LocalService>(),
             ),
             child: HomeConsumer(HomeScreen()),

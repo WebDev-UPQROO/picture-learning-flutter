@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/services/auth_serv.dart';
 import 'package:picture_learning/services/local_serv.dart';
-import 'package:provider/provider.dart';
 
 void main() => runApp(const AppRepository());
 
@@ -28,14 +28,14 @@ class AppRepository extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiRepositoryProvider(
       providers: [
-        Provider<AuthService>(
+        RepositoryProvider<AuthService>(
           create: (context) => AuthServ(),
         ),
-        Provider<LocalService>(
+        RepositoryProvider<LocalService>(
           create: (context) => LocalServ(),
-        )
+        ),
       ],
       child: const MyApp(),
     );

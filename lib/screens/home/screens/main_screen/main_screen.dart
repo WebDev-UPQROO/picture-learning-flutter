@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/screens/home/home_provider.dart';
+import 'package:picture_learning/screens/home/cubit/home_cubit.dart';
 import 'package:picture_learning/utils/null_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +10,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final user = context.watch<HomeProvider>().user;
+    final user = context.watch<HomeCubit>().state.user;
 
     return SafeArea(
       child: Column(
