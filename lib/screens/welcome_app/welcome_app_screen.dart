@@ -25,6 +25,7 @@ class WelcomeAppScreen extends StatelessWidget {
               ),
             ),
           ),
+          IconButton(onPressed: (){}, icon: Icon(Icons.highlight_off)),
           Positioned(
             right: size.width * 0.15,
             top: size.height * 0.08,
