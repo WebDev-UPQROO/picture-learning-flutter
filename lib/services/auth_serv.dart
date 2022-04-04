@@ -30,7 +30,7 @@ class AuthServ implements AuthService {
     String password,
   ) async {
     final response = await httpClient.post(
-      Uri.parse('${API.auth}/register'),
+      Uri.parse('${API.user}/register/62488ef3a780e9be1149cdd7'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         "email": email.trim(),
