@@ -1,9 +1,9 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picture_learning/screens/home/cubit/home_cubit.dart';
 import 'package:picture_learning/utils/dialog_loading.dart';
-
-import 'home_provider.dart';
+import 'package:picture_learning/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
-import 'package:provider/provider.dart';
 
 class HomeConsumer extends StatefulWidget {
   const HomeConsumer(this.child, {Key? key}) : super(key: key);
@@ -13,40 +13,38 @@ class HomeConsumer extends StatefulWidget {
 }
 
 class _HomeConsumerState extends State<HomeConsumer> {
-  late HomeProvider notifier;
-
-  void listener() {
-    switch (notifier.status) {
-      case Status.loading:
-        dialogLoading(context);
-        break;
-
-      case Status.loaded:
-        Navigator.pop(context);
-        break;
-      default:
-        break;
-    }
-  }
-
   @override
-  Widget build(BuildContext context) => widget.child;
+  Widget build(BuildContext context) {
+    return BlocListener<HomeCubit, HomeState>(
+      listener: (context, state) {
+        switch (state.status) {
+          case Status.loading:
+            dialogLoading(context);
+            break;
+
+          case Status.loaded:
+            Navigator.pop(context);
+            break;
+
+          case Status.error:
+            Navigator.pop(context);
+            snackbarError(context, state.message!.description);
+            break;
+
+          default:
+            break;
+        }
+      },
+      child: widget.child,
+    );
+  }
 
   @override
   void initState() {
     super.initState();
 
-    notifier = context.read<HomeProvider>();
-    notifier.addListener(listener);
-
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      notifier.getUser();
+      context.read<HomeCubit>().getUser();
     });
-  }
-
-  @override
-  void dispose() {
-    notifier.removeListener(listener);
-    super.dispose();
   }
 }

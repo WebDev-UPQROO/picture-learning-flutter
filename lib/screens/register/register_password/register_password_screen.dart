@@ -51,7 +51,7 @@ class RegisterPasswordScreen extends StatelessWidget {
       compareFields: true,
       submitText: 'Continuar',
       submitFunction: (String password, _) {
-        context.read<RegisterPasswordProvider>().postUser(
+        context.read<PasswordCubit>().postUser(
               username,
               email,
               password,
