@@ -11,6 +11,49 @@ class WelcomeAppScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      body: PageView(
+        children: <Widget>[
+          WelcomePages(
+             imgOnTop: Image.asset('assets/img/welcome_man.png', height: size.height * 0.43,),
+             onRight: 0.15,
+             titleText: 'Bienvenido',
+             descText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
+
+          ),
+          WelcomePages(
+             imgOnTop: Image.asset('assets/img/welcome_icon.png', height: size.height * 0.47,),
+             onRight: 0.25,
+             titleText: 'Picture Learning',
+             descText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
+
+          )
+        ]
+      )
+    );
+  }
+}
+
+class WelcomePages extends StatelessWidget {
+
+  const WelcomePages({
+    Key? key,
+    required this.imgOnTop,
+    required this.onRight,
+    required this.titleText,
+    required this.descText,
+  }) 
+  : super(key: key);
+
+  final Widget imgOnTop;
+   final double onRight;
+  final String titleText;
+  final String descText;
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    
+    return Scaffold(
       backgroundColor: Style.primary,
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -25,14 +68,10 @@ class WelcomeAppScreen extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(onPressed: (){}, icon: Icon(Icons.highlight_off)),
           Positioned(
-            right: size.width * 0.15,
+            right: size.width * onRight,
             top: size.height * 0.08,
-            child: Image.asset(
-              'assets/img/welcome_man.png',
-              height: size.height * 0.43,
-            ),
+            child: imgOnTop
           ),
           const Spacer(),
           SafeArea(
@@ -43,7 +82,7 @@ class WelcomeAppScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: size.height * 0.45),
                   Text(
-                    'Bienvenido',
+                    titleText,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: Style.h2,
@@ -52,7 +91,7 @@ class WelcomeAppScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
+                    descText,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: Style.h4,
