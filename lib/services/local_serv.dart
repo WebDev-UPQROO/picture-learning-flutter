@@ -5,6 +5,7 @@ import 'package:picture_learning/models/user/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalServ implements LocalService {
+  // User
   @override
   Future<bool> isUser() async {
     final prefs = await SharedPreferences.getInstance();
@@ -37,6 +38,7 @@ class LocalServ implements LocalService {
     prefs.remove('user');
   }
 
+  // FirstTime
   @override
   Future<void> putFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
@@ -47,5 +49,31 @@ class LocalServ implements LocalService {
   Future<bool> getFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool('firstTime') ?? true;
+  }
+
+  // Music
+  @override
+  Future<bool> getBackgroundMusic() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('music') ?? true;
+  }
+
+  @override
+  Future<void> putBackgroundMusic(bool isActive) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('music', isActive);
+  }
+
+  // Sound Effects
+  @override
+  Future<bool> getSoundEffects() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('effects') ?? true;
+  }
+
+  @override
+  Future<void> putSoundEffects(bool isActive) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('effects', isActive);
   }
 }
