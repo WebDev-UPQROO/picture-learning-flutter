@@ -1,37 +1,49 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/routes.dart';
-import 'package:picture_learning/screens/screens.dart';
 import 'package:picture_learning/utils/dialog_loading.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
+import 'cubit/settings_cubit.dart';
 
-class RegisterPasswordConsumer extends StatefulWidget {
-  const RegisterPasswordConsumer(this.child, {Key? key}) : super(key: key);
+class SettingsConsumer extends StatefulWidget {
+  const SettingsConsumer({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
   final Widget child;
   @override
-  State<RegisterPasswordConsumer> createState() =>
-      _RegisterPasswordConsumerState();
+  State<SettingsConsumer> createState() => _SettingsConsumerState();
 }
 
-class _RegisterPasswordConsumerState extends State<RegisterPasswordConsumer> {
+class _SettingsConsumerState extends State<SettingsConsumer> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PasswordCubit, PasswordState>(
+    return BlocListener<SettingsCubit, SettingsState>(
       listener: (context, state) {
         switch (state.status) {
           case Status.loading:
             dialogLoading(context);
             break;
 
-          case Status.finished:
+          case Status.loaded:
             Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.loginEmail);
-            snackbarSuccess(context, state.message!.description);
+            break;
+
+          case Status.finished:
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.loginOAuth,
+              (Route<dynamic> route) => false,
+            );
             break;
 
           case Status.error:
             Navigator.pop(context);
+            snackbarError(context, state.message!.description);
+            break;
+
+          case Status.errorStatic:
             snackbarError(context, state.message!.description);
             break;
 
@@ -46,5 +58,9 @@ class _RegisterPasswordConsumerState extends State<RegisterPasswordConsumer> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read<SettingsCubit>().getConfigs();
+    });
   }
 }

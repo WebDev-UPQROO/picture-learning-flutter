@@ -5,4 +5,5 @@ enum Status {
   validated,
   finished,
   error,
+  errorStatic,
 }

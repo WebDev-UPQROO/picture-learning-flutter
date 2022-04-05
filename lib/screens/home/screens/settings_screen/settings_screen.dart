@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
+import 'package:picture_learning/utils/null_helper.dart';
 import 'package:picture_learning/widgets/appbar/appbar_light.dart';
+import 'cubit/settings_cubit.dart';
 import 'widgets/index.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -8,7 +11,11 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final watch = context.watch<SettingsCubit>().state;
+    final read = context.read<SettingsCubit>();
     Size size = MediaQuery.of(context).size;
+
+    final user = watch.user;
 
     return Column(
       children: [
@@ -25,13 +32,13 @@ class SettingsScreen extends StatelessWidget {
               SettingsSection(
                 title: 'Cuenta',
                 options: [
-                  const SettingsTile(
+                  SettingsTile(
                     title: 'Correo electrónico',
-                    subtitle: 'hiram@gmail.com',
+                    subtitle: getString(user?.email),
                   ),
                   SettingsTile(
                     title: 'Nombre de usuario',
-                    subtitle: 'hiram',
+                    subtitle: getString(user?.username),
                     action: const SettingsTileEdit(),
                     onPressed: () {
                       showDialogEditUserName(
@@ -61,31 +68,17 @@ class SettingsScreen extends StatelessWidget {
                   SettingsTileSwitch(
                     title: 'Música de fondo',
                     subtitle: 'Habilitar/Deshbilitar música de fondo',
-                    value: true,
-                    onChange: (value) {},
+                    value: watch.music,
+                    onChange: (value) => read.putMusic(value),
                   ),
                   SettingsTileSwitch(
                     title: 'Efectos de sonido',
                     subtitle: 'Habilitar/Deshbilitar efectos de sonido',
-                    value: true,
-                    onChange: (value) {},
+                    value: watch.effects,
+                    onChange: (value) => read.putEffects(value),
                   ),
                 ],
               ),
-
-              // About us
-              // SettingsSection(
-              //   title: 'Acerca de nosotros',
-              //   options: [
-              //     SettingsTile(
-              //       title: 'Créditos',
-              //       subtitle: 'Mas iformación acerca del equipo de desarollo',
-              //       onPressed: () {
-              //         Navigator.pushNamed(context, Routes.credits);
-              //       },
-              //     ),
-              //   ],
-              // ),
 
               // Close
               Padding(
@@ -95,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
                     onPrimary: Style.danger,
                     side: BorderSide(color: Style.danger),
                   ),
-                  onPressed: () {},
+                  onPressed: () => read.logout(),
                   child: const Text('Cerrar Sesión'),
                 ),
               )

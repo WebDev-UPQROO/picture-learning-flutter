@@ -4,7 +4,6 @@ import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/screens/credits/credits_screen.dart';
 import 'package:picture_learning/screens/screens.dart';
-import 'package:provider/provider.dart';
 
 class Routes {
   static const String initialRoute = loginOAuth;
