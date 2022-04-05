@@ -1,54 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
+import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
 
 import '../../routes.dart';
+
 //for storing form state.
 class WelcomeAppScreen extends StatelessWidget {
   PageController _pageController = PageController();
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    
 
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        children: [
-          WelcomePages(
-             imgOnTop: Image.asset('assets/img/welcome_man.png', height: size.height * 0.43,),
-             onRight: 0.07,
-             titleText: 'Bienvenido',
-             descText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
-             onPressButton: (){
-               _pageController.animateToPage(_pageController.page!.toInt() + 1,
-                duration: Duration(milliseconds: 400),
-                curve: Curves.easeIn);
-             },
+      body: PageView(controller: _pageController, children: [
+        WelcomePages(
+          imgOnTop: Image.asset(
+            'assets/img/welcome_man.png',
+            height: size.height * 0.43,
           ),
-          WelcomePages(
-             imgOnTop: Image.asset('assets/img/welcome_icon.png', height: size.height * 0.47,),
-             onRight: 0.18,
-             titleText: 'Picture Learning',
-             descText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
-             onPressButton: (){
-               Navigator.pushNamed(context, Routes.loginOAuth);
-             },
-          )
-          
-        ]
-      ),
-
+          onRight: 0.07,
+          titleText: 'Bienvenido',
+          descText:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
+          onPressButton: () {
+            _pageController.animateToPage(_pageController.page!.toInt() + 1,
+                duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+          },
+        ),
+        WelcomePages(
+          imgOnTop: Image.asset(
+            'assets/img/welcome_icon.png',
+            height: size.height * 0.47,
+          ),
+          onRight: 0.18,
+          titleText: 'Picture Learning',
+          descText:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
+          onPressButton: () {
+            context.read<LocalService>().putFirstTime();
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.loginOAuth,
+              (Route<dynamic> route) => false,
+            );
+          },
+        )
+      ]),
     );
-
-  } 
+  }
 }
 
 class WelcomePages extends StatelessWidget {
-
   const WelcomePages({
     Key? key,
     required this.imgOnTop,
@@ -56,8 +62,7 @@ class WelcomePages extends StatelessWidget {
     required this.titleText,
     required this.descText,
     required this.onPressButton,
-  }) 
-  : super(key: key);
+  }) : super(key: key);
 
   final Widget imgOnTop;
   final double onRight;
@@ -68,13 +73,12 @@ class WelcomePages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    
-   return Scaffold(
+
+    return Scaffold(
       backgroundColor: Style.primary,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          
           Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
@@ -85,33 +89,31 @@ class WelcomePages extends StatelessWidget {
               ),
             ),
           ),
-         
           Positioned(
             right: size.width * 0.07,
-            top: size.height * 0.02,   
-            child:
-            SizedBox(
-              height: 36.0,
-              width: 36.0,
-              child: IconButton(
-                onPressed: (){
-                  Navigator.pushNamed(context, Routes.loginOAuth);
-                }, 
-                icon: const Icon(
-                  Icons.highlight_off,
-                  size: 36.0,
-                  color: Colors.white
-                ),
-              )
-            ),    
-          ),
+            top: size.height * 0.02,
+            child: SizedBox(
+                height: 36.0,
+                width: 36.0,
+                child: IconButton(
+                  onPressed: () {
+                    context.read<LocalService>().putFirstTime();
 
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Routes.loginOAuth,
+                      (Route<dynamic> route) => false,
+                    );
+                  },
+                  icon: const Icon(Icons.highlight_off,
+                      size: 36.0, color: Colors.white),
+                )),
+          ),
           Positioned(
             right: size.width * onRight,
             top: size.height * 0.08,
-            child: imgOnTop
+            child: imgOnTop,
           ),
-          const Spacer(),
           SafeArea(
             child: Gap04(
               child: Column(
@@ -139,14 +141,13 @@ class WelcomePages extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: size.height * 0.01),
-                  Directionality(                   
+                  Directionality(
                     textDirection: TextDirection.rtl,
                     child: ElevatedButton.icon(
-                    onPressed: onPressButton,
-                    icon: const Icon(Icons.chevron_left),
-                    label: const Text('Siguiente'),              
+                      onPressed: onPressButton,
+                      icon: const Icon(Icons.chevron_left),
+                      label: const Text('Siguiente'),
                     ),
-                    
                   ),
                 ],
               ),
@@ -154,7 +155,6 @@ class WelcomePages extends StatelessWidget {
           )
         ],
       ),
-    ); 
+    );
   }
-    
 }

@@ -43,7 +43,10 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
 
           case Status.finished:
             Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.welcomeApp);
+            Navigator.pushNamed(
+              context,
+              Routes.welcomeApp,
+            );
             break;
 
           case Status.error:

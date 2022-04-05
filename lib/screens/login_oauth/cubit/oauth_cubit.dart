@@ -29,20 +29,7 @@ class OAuthCubit extends Cubit<OAuthState> {
   }
 
   void putFirstTime() async {
-    try {
-      emit(state.copyWith(status: Status.loading));
-
-      await localService.putFirstTime();
-
-      emit(state.copyWith(
-        status: Status.finished,
-      ));
-    } catch (e) {
-      emit(state.copyWith(
-        status: Status.error,
-        message: ErrorC.errorHandler(e),
-      ));
-    }
+    emit(state.copyWith(status: Status.finished));
   }
 
   void getIsUser() async {
