@@ -20,7 +20,7 @@ class WelcomeAppScreen extends StatelessWidget {
         children: [
           WelcomePages(
              imgOnTop: Image.asset('assets/img/welcome_man.png', height: size.height * 0.43,),
-             onRight: 0.15,
+             onRight: 0.07,
              titleText: 'Bienvenido',
              descText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
              onPressButton: (){
@@ -31,7 +31,7 @@ class WelcomeAppScreen extends StatelessWidget {
           ),
           WelcomePages(
              imgOnTop: Image.asset('assets/img/welcome_icon.png', height: size.height * 0.47,),
-             onRight: 0.25,
+             onRight: 0.18,
              titleText: 'Picture Learning',
              descText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
              onPressButton: (){
@@ -86,28 +86,26 @@ class WelcomePages extends StatelessWidget {
             ),
           ),
          
-           Positioned(
+          Positioned(
             right: size.width * 0.07,
             top: size.height * 0.02,   
             child:
-           SizedBox(
-            height: 36.0,
-            width: 36.0,
-            child: IconButton(
-              onPressed: (){
-                Navigator.pushNamed(context, Routes.loginOAuth);
-              }, 
-              icon: const Icon(
-                Icons.highlight_off,
-                size: 36.0,
-                color: Colors.white
+            SizedBox(
+              height: 36.0,
+              width: 36.0,
+              child: IconButton(
+                onPressed: (){
+                  Navigator.pushNamed(context, Routes.loginOAuth);
+                }, 
+                icon: const Icon(
+                  Icons.highlight_off,
+                  size: 36.0,
+                  color: Colors.white
                 ),
               )
+            ),    
           ),
-             
-              
-             
-          ), 
+
           Positioned(
             right: size.width * onRight,
             top: size.height * 0.08,
@@ -145,10 +143,8 @@ class WelcomePages extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     child: ElevatedButton.icon(
                     onPressed: onPressButton,
-                    
                     icon: const Icon(Icons.chevron_left),
-                    label: const Text('Siguiente'),
-                    
+                    label: const Text('Siguiente'),              
                     ),
                     
                   ),

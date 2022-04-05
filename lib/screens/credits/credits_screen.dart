@@ -12,23 +12,23 @@ class CreditsScreen extends StatelessWidget {
     final List<Names> names = [
       Names(
         name: 'Erick Espinoza Canche',
-        email: '--',
+        email: 'erickesp2077@gmail.com',
       ),
       Names(
         name: 'Hiram Ordoñez Olvera',
         email: 'hiram8012@gmail.com',
       ),
       Names(
-        name: 'Katherine Sarahid Gonzalez Ramirez',
-        email: '--',
+        name: 'Katherine Sarahid González Ramírez',
+        email: 'kathigonzales@hotmail.com',
       ),
       Names(
-        name: 'Luis Fernando Lopez Romo',
-        email: '--',
+        name: 'Luis Fernando López Romo',
+        email: 'lopezromo.fer43@gmail.com',
       ),
       Names(
         name: 'Miguel Oswaldo Moo Ake',
-        email: '--',
+        email: 'moswaldomoo@gmail.com',
       ),
     ];
 
