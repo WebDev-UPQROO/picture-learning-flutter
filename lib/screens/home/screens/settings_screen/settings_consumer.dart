@@ -30,6 +30,12 @@ class _SettingsConsumerState extends State<SettingsConsumer> {
             Navigator.pop(context);
             break;
 
+          case Status.validated:
+            Navigator.pop(context);
+            Navigator.pop(context);
+            snackbarSuccess(context, state.message!.description);
+            break;
+
           case Status.finished:
             Navigator.pushNamedAndRemoveUntil(
               context,

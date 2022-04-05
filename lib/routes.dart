@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
+import 'package:picture_learning/models/services/user_service.dart';
 import 'package:picture_learning/screens/credits/credits_screen.dart';
 import 'package:picture_learning/screens/screens.dart';
 
@@ -60,7 +61,7 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => PasswordCubit(
-              context.read<AuthService>(),
+              context.read<UserService>(),
             ),
             child: RegisterPasswordConsumer(RegisterPasswordScreen(
               username: args.username,

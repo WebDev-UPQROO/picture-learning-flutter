@@ -15,4 +15,8 @@ class Lang {
       'Tu cuenta ha sido creada exitosamente';
   static const String errorTextRegisterPassword =
       'Las contraseñas no coinciden';
+
+  // Settings
+  static const String successTextSettings =
+      'Información actualizada exitosamente';
 }

@@ -41,10 +41,7 @@ class SettingsScreen extends StatelessWidget {
                     subtitle: getString(user?.username),
                     action: const SettingsTileEdit(),
                     onPressed: () {
-                      showDialogEditUserName(
-                        context,
-                        () {},
-                      );
+                      showDialogEditUserName(context);
                     },
                   ),
                   SettingsTile(
@@ -52,10 +49,7 @@ class SettingsScreen extends StatelessWidget {
                     subtitle: '********',
                     action: const SettingsTileEdit(),
                     onPressed: () {
-                      showDialogEditPassword(
-                        context,
-                        () {},
-                      );
+                      showDialogEditPassword(context);
                     },
                   ),
                 ],
@@ -99,13 +93,10 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Future<dynamic> showDialogEditUserName(
-    BuildContext context,
-    Function() onPressed,
-  ) {
+  Future<dynamic> showDialogEditUserName(BuildContext context) {
     return showDialog(
       context: context,
-      builder: (context) {
+      builder: (_) {
         final _form = GlobalKey<FormState>();
         final TextEditingController username = TextEditingController();
 
@@ -146,7 +137,7 @@ class SettingsScreen extends StatelessWidget {
                 if (!isValid) {
                   return;
                 }
-                onPressed();
+                context.read<SettingsCubit>().putUsername(username.text);
               },
             ),
           ],
@@ -155,18 +146,15 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Future<dynamic> showDialogEditPassword(
-    BuildContext context,
-    Function() onPressed,
-  ) {
+  Future<dynamic> showDialogEditPassword(BuildContext context) {
     final _form = GlobalKey<FormState>();
 
-    final TextEditingController password1 = TextEditingController();
-    final TextEditingController password2 = TextEditingController();
+    final TextEditingController password = TextEditingController();
+    final TextEditingController newPassword = TextEditingController();
 
     return showDialog(
       context: context,
-      builder: (context) {
+      builder: (_) {
         return AlertDialog(
           titleTextStyle: TextStyle(
             color: Style.grey800,
@@ -179,31 +167,31 @@ class SettingsScreen extends StatelessWidget {
               key: _form,
               child: ListBody(
                 children: <Widget>[
-                  const Text('Cambiar contaseña'),
+                  const Text('Contaseña'),
                   const SizedBox(height: 20),
                   TextFormField(
-                    controller: password1,
+                    controller: password,
                     obscureText: true,
                     validator: (text) {
-                      return (!(text!.length > 8))
+                      return (!(text!.length >= 8))
+                          ? "*Mínimo 8 caracteres"
+                          : null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Contraseña antigua',
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: newPassword,
+                    obscureText: true,
+                    validator: (text) {
+                      return (!(text!.length >= 8))
                           ? "*Mínimo 8 caracteres"
                           : null;
                     },
                     decoration: const InputDecoration(
                       labelText: 'Contraseña nueva',
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: password2,
-                    obscureText: true,
-                    validator: (text) {
-                      return (password1.text != text)
-                          ? "*Las contraseñas no coinciden"
-                          : null;
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Confirmar contraseña',
                     ),
                   ),
                 ],
@@ -218,7 +206,10 @@ class SettingsScreen extends StatelessWidget {
                 if (!isValid) {
                   return;
                 }
-                onPressed();
+                context.read<SettingsCubit>().putPassword(
+                      password.text,
+                      newPassword.text,
+                    );
               },
             ),
           ],

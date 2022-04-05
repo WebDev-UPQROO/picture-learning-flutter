@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/services/local_service.dart';
+import 'package:picture_learning/models/services/user_service.dart';
 import 'package:picture_learning/screens/credits/credits_screen.dart';
 import 'package:picture_learning/screens/home/screens/settings_screen/cubit/settings_cubit.dart';
 import 'screens/index.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       BlocProvider(
         create: (context) => SettingsCubit(
           context.read<LocalService>(),
+          context.read<UserService>(),
         ),
         child: const SettingsConsumer(
           child: SettingsScreen(),

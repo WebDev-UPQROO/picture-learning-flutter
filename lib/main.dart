@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
+import 'package:picture_learning/models/services/user_service.dart';
 import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/services/auth_serv.dart';
 import 'package:picture_learning/services/local_serv.dart';
+import 'package:picture_learning/services/user_serv.dart';
 
 void main() => runApp(const AppRepository());
 
@@ -35,6 +37,9 @@ class AppRepository extends StatelessWidget {
         ),
         RepositoryProvider<LocalService>(
           create: (context) => LocalServ(),
+        ),
+        RepositoryProvider<UserService>(
+          create: (context) => UserServ(),
         ),
       ],
       child: const MyApp(),
