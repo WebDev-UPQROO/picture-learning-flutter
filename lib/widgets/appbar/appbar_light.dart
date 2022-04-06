@@ -3,7 +3,7 @@ import 'package:picture_learning/constants/style.dart';
 
 class AppBarLight extends StatelessWidget implements PreferredSizeWidget {
   @override
-  get preferredSize => Size.fromHeight(70);
+  get preferredSize => const Size.fromHeight(56);
 
   const AppBarLight({
     Key? key,
@@ -18,8 +18,7 @@ class AppBarLight extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Style.white,
       foregroundColor: Style.grey800,
       elevation: 1,
-      centerTitle: true,
-      toolbarHeight: 70,
+      toolbarHeight: 56,
       title: Text(
         title,
         style: TextStyle(

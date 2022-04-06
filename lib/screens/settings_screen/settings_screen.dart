@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
+import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/utils/null_helper.dart';
 import 'package:picture_learning/widgets/appbar/appbar_light.dart';
 import 'cubit/settings_cubit.dart';
@@ -17,79 +18,94 @@ class SettingsScreen extends StatelessWidget {
 
     final user = watch.user;
 
-    return Column(
-      children: [
-        // Appbar dark
-        const AppBarLight(title: 'Comentarios'),
-
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.symmetric(
-              vertical: size.height * 0.02,
-            ),
-            children: [
-              // Account
-              SettingsSection(
-                title: 'Cuenta',
-                options: [
-                  SettingsTile(
-                    title: 'Correo electrónico',
-                    subtitle: getString(user?.email),
-                  ),
-                  SettingsTile(
-                    title: 'Nombre de usuario',
-                    subtitle: getString(user?.username),
-                    action: const SettingsTileEdit(),
-                    onPressed: () {
-                      showDialogEditUserName(context);
-                    },
-                  ),
-                  SettingsTile(
-                    title: 'Contraseña',
-                    subtitle: '********',
-                    action: const SettingsTileEdit(),
-                    onPressed: () {
-                      showDialogEditPassword(context);
-                    },
-                  ),
-                ],
+    return Scaffold(
+      appBar: const AppBarLight(title: 'Configuraciones'),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                vertical: size.height * 0.02,
               ),
-
-              // Music
-              SettingsSection(
-                title: 'Audio',
-                options: [
-                  SettingsTileSwitch(
-                    title: 'Música de fondo',
-                    subtitle: 'Habilitar/Deshbilitar música de fondo',
-                    value: watch.music,
-                    onChange: (value) => read.putMusic(value),
-                  ),
-                  SettingsTileSwitch(
-                    title: 'Efectos de sonido',
-                    subtitle: 'Habilitar/Deshbilitar efectos de sonido',
-                    value: watch.effects,
-                    onChange: (value) => read.putEffects(value),
-                  ),
-                ],
-              ),
-
-              // Close
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: OutlinedButton(
-                  style: ElevatedButton.styleFrom(
-                    onPrimary: Style.danger,
-                    side: BorderSide(color: Style.danger),
-                  ),
-                  onPressed: () => read.logout(),
-                  child: const Text('Cerrar Sesión'),
+              children: [
+                // Account
+                SettingsSection(
+                  title: 'Cuenta',
+                  options: [
+                    SettingsTile(
+                      title: 'Correo electrónico',
+                      subtitle: getString(user?.email),
+                    ),
+                    SettingsTile(
+                      title: 'Nombre de usuario',
+                      subtitle: getString(user?.username),
+                      action: const SettingsTileEdit(),
+                      onPressed: () {
+                        showDialogEditUserName(context);
+                      },
+                    ),
+                    SettingsTile(
+                      title: 'Contraseña',
+                      subtitle: '********',
+                      action: const SettingsTileEdit(),
+                      onPressed: () {
+                        showDialogEditPassword(context);
+                      },
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
-        )
-      ],
+
+                // Music
+                SettingsSection(
+                  title: 'Audio',
+                  options: [
+                    SettingsTileSwitch(
+                      title: 'Música de fondo',
+                      subtitle: 'Habilitar/Deshbilitar música de fondo',
+                      value: watch.music,
+                      onChange: (value) => read.putMusic(value),
+                    ),
+                    SettingsTileSwitch(
+                      title: 'Efectos de sonido',
+                      subtitle: 'Habilitar/Deshbilitar efectos de sonido',
+                      value: watch.effects,
+                      onChange: (value) => read.putEffects(value),
+                    ),
+                  ],
+                ),
+
+                // About us
+                SettingsSection(
+                  title: 'Acerca de nosotros',
+                  options: [
+                    SettingsTile(
+                      title: 'Créditos',
+                      subtitle: 'Mas iformación acerca del equipo de desarollo',
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        Routes.credits,
+                      ),
+                    ),
+                  ],
+                ),
+
+                // Close
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: OutlinedButton(
+                    style: ElevatedButton.styleFrom(
+                      onPrimary: Style.danger,
+                      side: BorderSide(color: Style.danger),
+                    ),
+                    onPressed: () => read.logout(),
+                    child: const Text('Cerrar Sesión'),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
