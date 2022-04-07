@@ -3,8 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/models/services/user_service.dart';
+import 'package:picture_learning/screens/comments_screen/comments_screen.dart';
 import 'package:picture_learning/screens/credits/credits_screen.dart';
 import 'package:picture_learning/screens/screens.dart';
+import 'package:picture_learning/screens/settings_screen/cubit/settings_cubit.dart';
+import 'package:picture_learning/screens/settings_screen/settings_consumer.dart';
+import 'package:picture_learning/screens/settings_screen/settings_screen.dart';
 
 class Routes {
   static const String initialRoute = loginOAuth;
@@ -20,6 +24,8 @@ class Routes {
   // Home
   static const home = 'home';
   static const credits = 'credits';
+  static const appSettings = 'appSettings';
+  static const reviews = 'reviews';
 
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
@@ -52,7 +58,7 @@ class Routes {
 
       case registerEmail:
         return MaterialPageRoute(
-          builder: (_) => (RegisterEmailScreen()),
+          builder: (_) => (const RegisterEmailScreen()),
         );
 
       case registerPassword:
@@ -76,13 +82,29 @@ class Routes {
             create: (context) => HomeCubit(
               context.read<LocalService>(),
             ),
-            child: HomeConsumer(HomeScreen()),
+            child: const HomeConsumer(HomeScreen()),
           ),
+        );
+
+      case appSettings:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => SettingsCubit(
+              context.read<LocalService>(),
+              context.read<UserService>(),
+            ),
+            child: const SettingsConsumer(child: SettingsScreen()),
+          ),
+        );
+
+      case reviews:
+        return MaterialPageRoute(
+          builder: (_) => const CommentsScreen(),
         );
 
       case credits:
         return MaterialPageRoute(
-          builder: (_) => CreditsScreen(),
+          builder: (_) => const CreditsScreen(),
         );
 
       default:
