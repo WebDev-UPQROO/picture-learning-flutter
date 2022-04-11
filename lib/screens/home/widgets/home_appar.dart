@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/routes.dart';
-import 'package:picture_learning/widgets/text/text_h4_bold_grey800.dart';
 
 class HomeAppar extends StatelessWidget implements PreferredSizeWidget {
   @override

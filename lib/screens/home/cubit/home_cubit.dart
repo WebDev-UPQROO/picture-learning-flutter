@@ -20,26 +20,26 @@ class HomeCubit extends Cubit<HomeState> {
   ) : super(HomeState.initial());
 
   void getHome() async {
-    // try {
-    emit(state.copyWith(
-      status: Status.loading,
-    ));
+    try {
+      emit(state.copyWith(
+        status: Status.loading,
+      ));
 
-    final user = await localService.getUser();
-    final fields = await gameService.getFields(
-      user.career ?? Defaults.faculty,
-    );
+      final user = await localService.getUser();
+      final fields = await gameService.getFields(
+        user.career ?? Defaults.faculty,
+      );
 
-    emit(state.copyWith(
-      user: user,
-      fields: fields,
-      status: Status.loaded,
-    ));
-    // } catch (e) {
-    //   emit(state.copyWith(
-    //     status: Status.error,
-    //     message: ErrorC.errorHandler(e),
-    //   ));
-    // }
+      emit(state.copyWith(
+        user: user,
+        fields: fields,
+        status: Status.loaded,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: Status.error,
+        message: ErrorC.errorHandler(e),
+      ));
+    }
   }
 }
