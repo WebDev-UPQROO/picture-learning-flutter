@@ -12,8 +12,8 @@ class HomeAppar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Style.white,
-      foregroundColor: Style.grey600,
+      backgroundColor: Style.primary,
+      foregroundColor: Style.white,
       toolbarHeight: 56,
       elevation: 0,
       title: Row(
@@ -21,7 +21,7 @@ class HomeAppar extends StatelessWidget implements PreferredSizeWidget {
           // App Name
           Image.asset('assets/img/logo.png', height: 30),
           const SizedBox(width: 8),
-          const TextH4BoldGrey800('Picture Learning'),
+          Text('Picture Learning', style: TextStyle(fontSize: Style.h4)),
           const Spacer(),
 
           // Options

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
+import 'package:picture_learning/models/services/game_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/models/services/user_service.dart';
 import 'package:picture_learning/screens/comments_screen/comments_screen.dart';
@@ -81,6 +82,7 @@ class Routes {
           builder: (_) => BlocProvider(
             create: (context) => HomeCubit(
               context.read<LocalService>(),
+              context.read<GameService>(),
             ),
             child: const HomeConsumer(HomeScreen()),
           ),

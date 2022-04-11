@@ -44,7 +44,7 @@ class _HomeConsumerState extends State<HomeConsumer> {
     super.initState();
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read<HomeCubit>().getUser();
+      context.read<HomeCubit>().getHome();
     });
   }
 }

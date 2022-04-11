@@ -9,8 +9,9 @@ import '../../routes.dart';
 
 //for storing form state.
 class WelcomeAppScreen extends StatelessWidget {
-  PageController _pageController = PageController();
+  WelcomeAppScreen({Key? key}) : super(key: key);
 
+  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -28,7 +29,8 @@ class WelcomeAppScreen extends StatelessWidget {
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
           onPressButton: () {
             _pageController.animateToPage(_pageController.page!.toInt() + 1,
-                duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeIn);
           },
         ),
         WelcomePages(

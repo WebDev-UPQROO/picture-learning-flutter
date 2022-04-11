@@ -60,7 +60,7 @@ class CommentsScreen extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Gap04(
             child: ElevatedButton(
               onPressed: () {},

@@ -6,11 +6,13 @@ class HomeState {
 
   // Data
   User? user;
+  List<Field>? fields;
 
   HomeState({
     required this.status,
     this.message,
     this.user,
+    this.fields,
   });
 
   HomeState.initial() : this(status: Status.initial);
@@ -19,11 +21,13 @@ class HomeState {
     Status? status,
     MessageUI? message,
     User? user,
+    List<Field>? fields,
   }) {
     return HomeState(
       status: status ?? this.status,
       message: message ?? this.message,
       user: user ?? this.user,
+      fields: fields ?? this.fields,
     );
   }
 }

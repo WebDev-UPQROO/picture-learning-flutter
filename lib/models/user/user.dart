@@ -15,8 +15,8 @@ class User {
   final bool? status;
   final bool? google;
   final String? career;
-  final List<dynamic>? perfectFields;
-  final List<dynamic>? perfectLevels;
+  final List<String>? perfectFields;
+  final List<String>? perfectLevels;
   final String? uid;
 
   User copyWith({
@@ -25,8 +25,8 @@ class User {
     bool? status,
     bool? google,
     String? career,
-    List<dynamic>? perfectFields,
-    List<dynamic>? perfectLevels,
+    List<String>? perfectFields,
+    List<String>? perfectLevels,
     String? uid,
   }) =>
       User(
@@ -48,10 +48,10 @@ class User {
         career: json["career"],
         perfectFields: json["perfect_fields"] == null
             ? null
-            : List<dynamic>.from(json["perfect_fields"].map((x) => x)),
+            : List<String>.from(json["perfect_fields"].map((x) => x)),
         perfectLevels: json["perfect_levels"] == null
             ? null
-            : List<dynamic>.from(json["perfect_levels"].map((x) => x)),
+            : List<String>.from(json["perfect_levels"].map((x) => x)),
         uid: json["uid"],
       );
 
