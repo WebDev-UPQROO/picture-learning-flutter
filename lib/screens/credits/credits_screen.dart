@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/widgets/appbar/appbar_light.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CreditsScreen extends StatelessWidget {
   const CreditsScreen({Key? key}) : super(key: key);
@@ -12,23 +13,23 @@ class CreditsScreen extends StatelessWidget {
     final List<Names> names = [
       Names(
         name: 'Erick Espinoza Canche',
-        email: 'erickesp2077@gmail.com',
+        github: 'github.com/ErickEsp117',
       ),
       Names(
         name: 'Hiram Ordoñez Olvera',
-        email: 'hiram8012@gmail.com',
+        github: 'github.com/HiramOrd',
       ),
       Names(
         name: 'Katherine Sarahid González Ramírez',
-        email: 'kathigonzales@hotmail.com',
+        github: 'github.com/katleeni',
       ),
       Names(
         name: 'Luis Fernando López Romo',
-        email: 'lopezromo.fer43@gmail.com',
+        github: 'github.com/Romo43',
       ),
       Names(
         name: 'Miguel Oswaldo Moo Ake',
-        email: 'moswaldomoo@gmail.com',
+        github: 'github.com/Valdo227',
       ),
     ];
 
@@ -53,7 +54,8 @@ class CreditsScreen extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return ListTileCredits(
                   title: names[index].name,
-                  subtitle: names[index].email,
+                  subtitle: names[index].github,
+      
                 );
               },
             ),
@@ -83,15 +85,21 @@ class ListTileCredits extends StatelessWidget {
         style: TextStyle(
           color: Style.grey600,
           fontSize: Style.textsm,
+          decoration: TextDecoration.underline,
         ),
       ),
+      onTap: _launchURL,
     );
+  }
+
+  void _launchURL() async {
+    if (!await launch('https://'+ subtitle)) throw 'Could not launch $subtitle';
   }
 }
 
 class Names {
   String name;
-  String email;
+  String github;
 
-  Names({required this.name, required this.email});
+  Names({required this.name, required this.github});
 }
