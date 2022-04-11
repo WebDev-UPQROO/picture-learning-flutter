@@ -23,7 +23,7 @@ class WelcomeAppScreen extends StatelessWidget {
             'assets/img/welcome_man.png',
             height: size.height * 0.43,
           ),
-          onRight: 0.07,
+          onRight: 0.15,
           titleText: 'Bienvenido',
           descText:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
@@ -38,7 +38,7 @@ class WelcomeAppScreen extends StatelessWidget {
             'assets/img/welcome_icon.png',
             height: size.height * 0.47,
           ),
-          onRight: 0.18,
+          onRight: 0.24,
           titleText: 'Picture Learning',
           descText:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
