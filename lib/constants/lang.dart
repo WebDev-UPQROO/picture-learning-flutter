@@ -19,4 +19,8 @@ class Lang {
   // Settings
   static const String successTextSettings =
       'Información actualizada exitosamente';
+
+  static const String reviewError = 'Por favor, agrega un comentario';
+  static const String reviewSuccess = 'Gracias por tu comentario';
+  static const String reviewSpam = 'Ya has enviado un comentario recientemente';
 }

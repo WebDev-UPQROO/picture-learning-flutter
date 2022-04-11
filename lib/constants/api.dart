@@ -3,6 +3,7 @@ class API {
   static const String auth = '$base/auth';
   static const String user = '$base/user';
   static const String home = '$base/home';
+  static const String feed = '$base/feed';
 }
 
 class Defaults {

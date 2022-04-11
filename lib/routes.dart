@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
+import 'package:picture_learning/models/services/feed_service.dart';
 import 'package:picture_learning/models/services/game_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/models/services/user_service.dart';
+import 'package:picture_learning/screens/comments_screen/comments_consumer.dart';
 import 'package:picture_learning/screens/comments_screen/comments_screen.dart';
+import 'package:picture_learning/screens/comments_screen/cubit/comments_cubit.dart';
 import 'package:picture_learning/screens/credits/credits_screen.dart';
 import 'package:picture_learning/screens/screens.dart';
 import 'package:picture_learning/screens/settings_screen/cubit/settings_cubit.dart';
@@ -101,7 +104,13 @@ class Routes {
 
       case reviews:
         return MaterialPageRoute(
-          builder: (_) => const CommentsScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) => CommentsCubit(
+              context.read<FeedService>(),
+              context.read<LocalService>(),
+            ),
+            child: CommentsConsumer(child: CommentsScreen()),
+          ),
         );
 
       case credits:

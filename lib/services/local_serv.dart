@@ -38,6 +38,19 @@ class LocalServ implements LocalService {
     prefs.remove('user');
   }
 
+  // Review
+  @override
+  Future<void> putLastReview(String review) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('review', review);
+  }
+
+  @override
+  Future<String?> getLastReview() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('review');
+  }
+
   // FirstTime
   @override
   Future<void> putFirstTime() async {

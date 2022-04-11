@@ -7,6 +7,10 @@ abstract class LocalService {
   Future<void> putUser(User user);
   Future<void> deleteUser();
 
+  // Reviews
+  Future<void> putLastReview(String review);
+  Future<String?> getLastReview();
+
   // First Time
   Future<void> putFirstTime();
   Future<bool> getFirstTime();
