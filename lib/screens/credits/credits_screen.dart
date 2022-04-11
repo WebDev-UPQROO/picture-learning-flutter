@@ -39,7 +39,6 @@ class CreditsScreen extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(
           vertical: size.height * 0.04,
-          horizontal: size.width * 0.04,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,7 +54,6 @@ class CreditsScreen extends StatelessWidget {
                 return ListTileCredits(
                   title: names[index].name,
                   subtitle: names[index].github,
-      
                 );
               },
             ),
@@ -93,7 +91,8 @@ class ListTileCredits extends StatelessWidget {
   }
 
   void _launchURL() async {
-    if (!await launch('https://'+ subtitle)) throw 'Could not launch $subtitle';
+    if (!await launch('https://' + subtitle))
+      throw 'Could not launch $subtitle';
   }
 }
 
