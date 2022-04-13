@@ -44,6 +44,7 @@ class Routes {
           builder: (_) => BlocProvider(
             create: (context) => OAuthCubit(
               context.read<LocalService>(),
+              context.read<AuthService>(),
             ),
             child: const LoginOAuthConsumer(LoginOAuthScreen()),
           ),
