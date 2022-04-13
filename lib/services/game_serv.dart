@@ -10,77 +10,14 @@ class GameServ implements GameService {
 
   @override
   Future<List<Field>> getFields(String faculty) async {
-    return ([
-      {
-        "name": "Software",
-        "description":
-            "Software engineering is the practical application of scientific knowledge to the design and construction of computer programs and the associated documentation required to develop, operate, and maintain them.",
-        "image":
-            "https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png",
-        "facultyId": "62488ef3a780e9be1149cdd7",
-        "uid": "624893bd6cdb752860a39208",
-        "topics": [
-          {
-            "name": "Software",
-            "description":
-                "Software engineering is the practical application of scientific knowledge to the design and construction of computer programs and the associated documentation required to develop, operate, and maintain them.",
-            "image":
-                "https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png",
-            "fieldId": "624893bd6cdb752860a39208",
-            "uid": "6248d579513084019176e84e"
-          }
-        ]
-      },
-      {
-        "name": "Software",
-        "description":
-            "Software engineering is the practical application of scientific knowledge to the design and construction of computer programs and the associated documentation required to develop, operate, and maintain them.",
-        "image":
-            "https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png",
-        "facultyId": "62488ef3a780e9be1149cdd7",
-        "uid": "624893bd6cdb752860a39208",
-        "topics": [
-          {
-            "name": "Software",
-            "description":
-                "Software engineering is the practical application of scientific knowledge to the design and construction of computer programs and the associated documentation required to develop, operate, and maintain them.",
-            "image":
-                "https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png",
-            "fieldId": "624893bd6cdb752860a39208",
-            "uid": "6248d579513084019176e84e"
-          }
-        ]
-      },
-      {
-        "name": "Software",
-        "description":
-            "Software engineering is the practical application of scientific knowledge to the design and construction of computer programs and the associated documentation required to develop, operate, and maintain them.",
-        "image":
-            "https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png",
-        "facultyId": "62488ef3a780e9be1149cdd7",
-        "uid": "624893bd6cdb752860a39208",
-        "topics": [
-          {
-            "name": "Software",
-            "description":
-                "Software engineering is the practical application of scientific knowledge to the design and construction of computer programs and the associated documentation required to develop, operate, and maintain them.",
-            "image":
-                "https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png",
-            "fieldId": "624893bd6cdb752860a39208",
-            "uid": "6248d579513084019176e84e"
-          }
-        ]
-      }
-    ]).map((item) => Field.fromMap(item)).toList();
+    final response = await httpClient.get(
+      Uri.parse('${API.home}/faculty/$faculty'),
+      headers: {'Content-Type': 'application/json'},
+    );
 
-    // final response = await httpClient.get(
-    //   Uri.parse('${API.home}/$faculty'),
-    //   headers: {'Content-Type': 'application/json'},
-    // );
-
-    // return (ResponseAPI.getData(response) as List)
-    //     .map((item) => Field.fromMap(item))
-    //     .toList();
+    return (ResponseAPI.getData(response) as List)
+        .map((item) => Field.fromMap(item))
+        .toList();
   }
 
   @override

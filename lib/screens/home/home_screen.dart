@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   ListView.builder(
                     padding: const EdgeInsets.only(top: 60),
-                    itemCount: fields?.length,
+                    itemCount: fields?.length ?? 0,
                     itemBuilder: (context, index) {
                       final field = fields?[index];
 
@@ -54,12 +54,11 @@ class HomeScreen extends StatelessWidget {
                         // Level Item
                         exercises: field?.topics?.map((topic) {
                               return HomeCardItem(
-                                image: topic.image,
+                                topic: topic,
                                 isPerfect: isPerfect(
                                   user?.perfectLevels,
                                   topic.uid,
                                 ),
-                                name: topic.name,
                               );
                             }).toList() ??
                             [],

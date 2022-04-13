@@ -9,6 +9,9 @@ import 'package:picture_learning/screens/comments_screen/comments_consumer.dart'
 import 'package:picture_learning/screens/comments_screen/comments_screen.dart';
 import 'package:picture_learning/screens/comments_screen/cubit/comments_cubit.dart';
 import 'package:picture_learning/screens/credits/credits_screen.dart';
+import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
+import 'package:picture_learning/screens/game/game_consumer.dart';
+import 'package:picture_learning/screens/game/game_screen.dart';
 import 'package:picture_learning/screens/screens.dart';
 import 'package:picture_learning/screens/settings_screen/cubit/settings_cubit.dart';
 import 'package:picture_learning/screens/settings_screen/settings_consumer.dart';
@@ -30,6 +33,9 @@ class Routes {
   static const credits = 'credits';
   static const appSettings = 'appSettings';
   static const reviews = 'reviews';
+
+  // Game
+  static const game = 'game';
 
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
@@ -110,6 +116,18 @@ class Routes {
               context.read<LocalService>(),
             ),
             child: CommentsConsumer(child: CommentsScreen()),
+          ),
+        );
+
+      case game:
+        String uid = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => GameCubit(),
+            child: GameConsumer(
+              uid: uid,
+              child: GameScreen(uid: uid),
+            ),
           ),
         );
 

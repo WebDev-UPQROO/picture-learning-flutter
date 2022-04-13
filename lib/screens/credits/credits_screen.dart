@@ -91,8 +91,9 @@ class ListTileCredits extends StatelessWidget {
   }
 
   void _launchURL() async {
-    if (!await launch('https://' + subtitle))
+    if (!await launch('https://' + subtitle)) {
       throw 'Could not launch $subtitle';
+    }
   }
 }
 
