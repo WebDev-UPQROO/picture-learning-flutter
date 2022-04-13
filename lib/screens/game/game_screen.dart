@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/widgets/buttons/elevated_button_icon_white.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
-import 'package:picture_learning/widgets/text/text_h4_bold_grey800%20copy.dart';
+import 'package:picture_learning/widgets/text/text_h3_bold_white.dart';
 import 'package:picture_learning/widgets/text/text_h4_bold_grey800.dart';
 
 class GameScreen extends StatelessWidget {
@@ -110,7 +109,7 @@ class GameScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return ElevatedButton(
                             onPressed: () {},
-                            child: TextH4BoldGrey800('data'),
+                            child: const TextH4BoldGrey800('data'),
                             style: ElevatedButton.styleFrom(
                               elevation: 3,
                               primary: Style.white,

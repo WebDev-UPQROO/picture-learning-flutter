@@ -8,6 +8,7 @@ dialogLoading(BuildContext context) {
     child: Loading(),
   );
   showDialog(
+    barrierColor: Colors.white12,
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {

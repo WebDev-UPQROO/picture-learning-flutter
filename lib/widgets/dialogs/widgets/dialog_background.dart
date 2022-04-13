@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class DialogBackground extends StatelessWidget {
@@ -11,16 +10,10 @@ class DialogBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackdropFilter(
-      filter: ImageFilter.blur(
-        sigmaX: 10,
-        sigmaY: 10,
-      ),
-      child: Dialog(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        child: child,
-      ),
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      child: child,
     );
   }
 }

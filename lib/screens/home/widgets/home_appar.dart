@@ -4,7 +4,7 @@ import 'package:picture_learning/routes.dart';
 
 class HomeAppar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Size get preferredSize => const Size.fromHeight(56);
+  Size get preferredSize => const Size.fromHeight(80);
 
   const HomeAppar({Key? key}) : super(key: key);
 
@@ -13,14 +13,20 @@ class HomeAppar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Style.primary,
       foregroundColor: Style.white,
-      toolbarHeight: 56,
+      toolbarHeight: 80,
       elevation: 0,
       title: Row(
         children: [
           // App Name
-          Image.asset('assets/img/logo.png', height: 30),
+          Image.asset('assets/img/logo.png', height: 40),
           const SizedBox(width: 8),
-          Text('Picture Learning', style: TextStyle(fontSize: Style.h4)),
+          const Text(
+            'Picture Learning',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const Spacer(),
 
           // Options
