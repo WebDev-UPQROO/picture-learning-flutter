@@ -23,7 +23,7 @@ class GameServ implements GameService {
   @override
   Future<List<Exercise>> getExercise(String topicId) async {
     final response = await httpClient.get(
-      Uri.parse('${API.home}/$topicId'),
+      Uri.parse('${API.home}/exercises/$topicId'),
       headers: {'Content-Type': 'application/json'},
     );
 

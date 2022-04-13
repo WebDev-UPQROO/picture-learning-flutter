@@ -6,4 +6,6 @@ abstract class UserService {
     String password,
     String newPassword,
   );
+
+  Future<void> postFeed(String comments, int stars);
 }

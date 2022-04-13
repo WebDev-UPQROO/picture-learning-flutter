@@ -59,4 +59,17 @@ class UserServ implements UserService {
 
     ResponseAPI.getData(response);
   }
+
+  @override
+  Future<void> postFeed(String comments, int stars) async {
+    await httpClient.post(
+      Uri.parse('${API.user}/feedback'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        "title": "Review",
+        "feed": comments,
+        "score": stars,
+      }),
+    );
+  }
 }
