@@ -167,7 +167,7 @@ class SuccessScreen extends StatelessWidget {
                     child: 
                     Center(
                       child: Text(
-                      'Score \n7/10',
+                      scoreText,
                       textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: Style.h3,
@@ -298,7 +298,7 @@ class WrongScreen extends StatelessWidget {
                     child: 
                     Center(
                       child: Text(
-                      'Score \n7/10',
+                      scoreText,
                       textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: Style.h3,
