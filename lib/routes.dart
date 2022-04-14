@@ -11,6 +11,7 @@ import 'package:picture_learning/screens/credits/credits_screen.dart';
 import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
 import 'package:picture_learning/screens/game/game_consumer.dart';
 import 'package:picture_learning/screens/game/game_screen.dart';
+import 'package:picture_learning/screens/game/results_screen/results_screen.dart';
 import 'package:picture_learning/screens/screens.dart';
 import 'package:picture_learning/screens/settings_screen/cubit/settings_cubit.dart';
 import 'package:picture_learning/screens/settings_screen/settings_consumer.dart';
@@ -35,6 +36,7 @@ class Routes {
 
   // Game
   static const game = 'game';
+   static const results = 'results';
 
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
@@ -127,6 +129,17 @@ class Routes {
               uid: uid,
               child: GameScreen(uid: uid),
             ),
+          ),
+        );
+
+      case results:
+       return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => CommentsCubit(
+              context.read<UserService>(),
+              context.read<LocalService>(),
+            ),
+            child: CommentsConsumer(child: ResultsScreen()),
           ),
         );
 

@@ -4,6 +4,7 @@ import 'package:picture_learning/widgets/gaps/gap_04.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
 import 'package:picture_learning/widgets/text/text_h3_bold_white.dart';
 import 'package:picture_learning/widgets/text/text_h4_bold_grey800.dart';
+import '../../routes.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({
@@ -108,7 +109,9 @@ class GameScreen extends StatelessWidget {
                         itemCount: 4,
                         itemBuilder: (BuildContext context, int index) {
                           return ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                               Navigator.pushNamed(context, Routes.results);
+                            },
                             child: const TextH4BoldGrey800('data'),
                             style: ElevatedButton.styleFrom(
                               elevation: 3,
