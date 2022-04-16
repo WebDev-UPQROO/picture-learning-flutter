@@ -3,6 +3,7 @@ import 'package:picture_learning/constants/style.dart';
 
 snackbarError(BuildContext context, String error) {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
+  final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   final snackBar = SnackBar(
     backgroundColor: Style.danger,
@@ -11,7 +12,7 @@ snackbarError(BuildContext context, String error) {
       textColor: Style.white,
       label: 'Cerrar',
       onPressed: () {
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        scaffoldMessengerKey.currentState?.removeCurrentSnackBar();
       },
     ),
   );
@@ -20,6 +21,7 @@ snackbarError(BuildContext context, String error) {
 
 snackbarSuccess(BuildContext context, String message) {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
+  final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   final snackBar = SnackBar(
     backgroundColor: Style.success,
@@ -28,7 +30,7 @@ snackbarSuccess(BuildContext context, String message) {
       textColor: Style.white,
       label: 'Cerrar',
       onPressed: () {
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        scaffoldMessengerKey.currentState?.removeCurrentSnackBar();
       },
     ),
   );
