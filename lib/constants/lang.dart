@@ -20,7 +20,11 @@ class Lang {
   static const String successTextSettings =
       'Información actualizada exitosamente';
 
+  // Comments
   static const String reviewError = 'Por favor, agrega un comentario';
   static const String reviewSuccess = 'Gracias por tu comentario';
   static const String reviewSpam = 'Ya has enviado un comentario recientemente';
+
+  // Game
+  static const String gameNull = 'El nivel no cargó correctamente';
 }

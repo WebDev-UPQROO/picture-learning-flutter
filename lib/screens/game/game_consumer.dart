@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picture_learning/constants/lang.dart';
+import 'package:picture_learning/models/game/index.dart';
 import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
+import 'package:picture_learning/screens/game/game_data.dart';
 import 'package:picture_learning/utils/dialog_loading.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 
@@ -21,9 +26,11 @@ class GameConsumer extends StatefulWidget {
 }
 
 class _GameConsumerState extends State<GameConsumer> {
+  late final Timer timer;
   @override
   Widget build(BuildContext context) {
     return BlocListener<GameCubit, GameState>(
+      listenWhen: (p, c) => p.status != c.status,
       listener: (context, state) {
         switch (state.status) {
           case Status.loading:
@@ -32,6 +39,10 @@ class _GameConsumerState extends State<GameConsumer> {
 
           case Status.loaded:
             Navigator.pop(context);
+            if (state.exercises?.isEmpty ?? true) {
+              Navigator.pop(context);
+              snackbarError(context, Lang.gameNull);
+            }
             break;
 
           case Status.error:
@@ -50,5 +61,44 @@ class _GameConsumerState extends State<GameConsumer> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      await context.read<GameCubit>().getGame(widget.uid);
+      await Future.delayed(const Duration(milliseconds: 600));
+
+      // Star and show first text
+      int index = 0;
+      var messageInitial = gameInitial[index];
+      context.read<GameCubit>().startGame(
+            messageInitial: messageInitial,
+          );
+
+      // every secnd show next text
+      timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (timer) {
+          index = index + 1;
+          messageInitial = gameInitial[index];
+
+          context.read<GameCubit>().startGame(
+                messageInitial: messageInitial,
+              );
+
+          // If all the text was displayed, the game starts
+          if (index == gameInitial.length - 1) {
+            context.read<GameCubit>().startGame(
+                  gameStatus: GameStatus.active,
+                  progressStatus: ProgressStatus.start,
+                );
+            timer.cancel();
+          }
+        },
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 }
