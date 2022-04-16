@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
+import 'package:picture_learning/models/game/game_ui.dart';
 import 'package:picture_learning/models/game/index.dart';
 import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/utils/null_helper.dart';
@@ -32,7 +33,10 @@ class HomeCardItem extends StatelessWidget {
         onTap: () => Navigator.pushNamed(
           context,
           Routes.game,
-          arguments: topic.uid,
+          arguments: GameUI(
+            uid: topic.uid!,
+            name: topic.name,
+          ),
         ),
         borderRadius: BorderRadius.circular(100),
         child: Stack(

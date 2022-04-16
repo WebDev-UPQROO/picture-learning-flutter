@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picture_learning/models/game/game_ui.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/game_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
@@ -120,13 +121,15 @@ class Routes {
         );
 
       case game:
-        String uid = settings.arguments as String;
+        GameUI game = settings.arguments as GameUI;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => GameCubit(),
+            create: (context) => GameCubit(
+              context.read<GameService>(),
+            ),
             child: GameConsumer(
-              uid: uid,
-              child: GameScreen(uid: uid),
+              uid: game.uid,
+              child: GameScreen(game: game),
             ),
           ),
         );

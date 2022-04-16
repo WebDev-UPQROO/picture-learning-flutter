@@ -50,9 +50,5 @@ class _GameConsumerState extends State<GameConsumer> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // Do something
-    });
   }
 }
