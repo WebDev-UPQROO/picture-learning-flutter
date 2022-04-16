@@ -44,6 +44,8 @@ class LoginOAuthScreen extends StatelessWidget {
                     const Spacer(),
                     Image.asset(
                       'assets/img/logo.png',
+                      height: size.height * 0.3,
+                      fit: BoxFit.contain,
                     ),
                     const Spacer(),
 
