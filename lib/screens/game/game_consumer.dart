@@ -1,15 +1,18 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/lang.dart';
+import 'package:picture_learning/global/music/music_cubit.dart';
+import 'package:picture_learning/main.dart';
 import 'package:picture_learning/models/game/index.dart';
 import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
 import 'package:picture_learning/screens/game/game_data.dart';
 import 'package:picture_learning/utils/dialog_loading.dart';
 import 'package:picture_learning/utils/snackbar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
+
+const String song =
+    'https://t4.bcbits.com/stream/a70976542a534e8266e7010c324049ec/mp3-128/3206091462?p=0&ts=1650239624&t=62ebe9e48862da5c017b3068f513aa807c6fbbf4&token=1650239624_b265ee019ad6835c4c2592eeb70b942a4d3ee777';
 
 class GameConsumer extends StatefulWidget {
   const GameConsumer({
@@ -25,7 +28,7 @@ class GameConsumer extends StatefulWidget {
   State<GameConsumer> createState() => _GameConsumerState();
 }
 
-class _GameConsumerState extends State<GameConsumer> {
+class _GameConsumerState extends State<GameConsumer> with RouteAware {
   late final Timer timer;
   @override
   Widget build(BuildContext context) {
@@ -97,8 +100,32 @@ class _GameConsumerState extends State<GameConsumer> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+  }
+
+  @override
   void dispose() {
     timer.cancel();
+    routeObserver.unsubscribe(this);
     super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    context.read<MusicCubit>().stopMusic();
+  }
+
+  @override
+  void didPopNext() {
+    const url = song;
+    context.read<MusicCubit>().playMusic(url);
+  }
+
+  @override
+  void didPush() {
+    const url = song;
+    context.read<MusicCubit>().playMusic(url);
   }
 }
