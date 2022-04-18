@@ -29,7 +29,10 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void musicControl() {
-    emit(state.copyWith(backgroundMusic: !state.backgroundMusic));
+    emit(state.copyWith(
+      backgroundMusic: !state.backgroundMusic,
+      progressStatus: ProgressStatus.initial,
+    ));
     updateMusic();
   }
 
@@ -71,12 +74,27 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void pressOption(String option) {
+    ProgressStatus progressStatus;
     if (option == state.exercises?[state.gameIndex].answer) {
-      emit(state.copyWith(progressStatus: ProgressStatus.correct));
+      progressStatus = ProgressStatus.correct;
       musicCubit.playeffect(state.success);
     } else {
-      emit(state.copyWith(progressStatus: ProgressStatus.wrong));
+      progressStatus = ProgressStatus.wrong;
       musicCubit.playeffect(state.wrong);
     }
+
+    if (state.gameIndex >= state.exercises!.length - 1) {
+      emit(state.copyWith(progressStatus: ProgressStatus.finished));
+      return;
+    }
+
+    emit(state.copyWith(
+      progressStatus: progressStatus,
+      gameIndex: state.gameIndex + 1,
+    ));
+  }
+
+  void finishGame() {
+    emit(state.copyWith(progressStatus: ProgressStatus.finished));
   }
 }

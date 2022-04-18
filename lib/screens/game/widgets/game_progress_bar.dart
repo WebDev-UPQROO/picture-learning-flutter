@@ -16,7 +16,7 @@ class _GameProgressbarState extends State<GameProgressbar>
     with TickerProviderStateMixin {
   late final AnimationController controller = AnimationController(
     value: 1,
-    duration: const Duration(seconds: 15),
+    duration: const Duration(seconds: 20),
     vsync: this,
   );
 
@@ -24,7 +24,7 @@ class _GameProgressbarState extends State<GameProgressbar>
   void initState() {
     controller.addStatusListener((status) {
       if (status.index == 0) {
-        Navigator.of(context).pushReplacementNamed(Routes.home);
+        context.read<GameCubit>().finishGame();
       }
     });
     super.initState();
@@ -47,13 +47,18 @@ class _GameProgressbarState extends State<GameProgressbar>
             break;
 
           case ProgressStatus.correct:
-            controller.value = controller.value + 0.1;
+            controller.value = controller.value + 0.03;
             controller.reverse();
             break;
 
           case ProgressStatus.wrong:
             controller.value = controller.value - 0.03;
             controller.reverse();
+            break;
+
+          case ProgressStatus.finished:
+            print('finished');
+            Navigator.of(context).pushReplacementNamed(Routes.home);
             break;
 
           default:
