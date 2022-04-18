@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/game/index.dart';
-import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
 import 'package:picture_learning/utils/null_helper.dart';
 import 'package:picture_learning/widgets/text/index.dart';
 
@@ -21,7 +19,7 @@ class GameButtonsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => context.read<GameCubit>().pressOption(option!),
+      onPressed: onPressed,
       child: TextH4BoldGrey800(
         gameStatus == GameStatus.active ? getString(option) : '??',
       ),

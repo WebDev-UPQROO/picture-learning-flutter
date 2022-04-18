@@ -1,8 +1,11 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
 
-class GameBackground extends StatelessWidget {
+late ConfettiController confettiController;
+
+class GameBackground extends StatefulWidget {
   const GameBackground({
     Key? key,
     required this.game,
@@ -13,6 +16,25 @@ class GameBackground extends StatelessWidget {
   final Widget game;
   final Widget initalScreen;
   final Widget progressBar;
+
+  @override
+  State<GameBackground> createState() => _GameBackgroundState();
+}
+
+class _GameBackgroundState extends State<GameBackground> {
+  @override
+  void initState() {
+    confettiController = ConfettiController(
+      duration: const Duration(milliseconds: 500),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    confettiController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +52,21 @@ class GameBackground extends StatelessWidget {
             ),
           ),
         ),
-        game,
-        progressBar,
-        initalScreen,
+        widget.game,
+        widget.progressBar,
+        widget.initalScreen,
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConfettiWidget(
+            maxBlastForce: 100,
+            numberOfParticles: 30,
+            blastDirectionality: BlastDirectionality.explosive,
+            blastDirection: -80,
+            confettiController: confettiController,
+            gravity: 1,
+            colors: [Style.success],
+          ),
+        ),
       ],
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/game/index.dart';
 import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
+import 'package:picture_learning/screens/game/widgets/game_background.dart';
 import 'package:picture_learning/widgets/anim/animated_bar.dart';
 
 class GameProgressbar extends StatefulWidget {
@@ -38,8 +40,15 @@ class _GameProgressbarState extends State<GameProgressbar>
 
   @override
   Widget build(BuildContext context) {
+    void awaitAnimation() {
+      Future.delayed(const Duration(seconds: 1)).then((_) {
+        if (mounted) {
+          controller.reverse();
+        }
+      });
+    }
+
     return BlocListener<GameCubit, GameState>(
-      // listenWhen: (p, c) => p.progressStatus != c.progressStatus,
       listener: (context, state) {
         switch (state.progressStatus) {
           case ProgressStatus.start:
@@ -48,16 +57,18 @@ class _GameProgressbarState extends State<GameProgressbar>
 
           case ProgressStatus.correct:
             controller.value = controller.value + 0.03;
-            controller.reverse();
+            controller.stop();
+            confettiController.play();
+            awaitAnimation();
             break;
 
           case ProgressStatus.wrong:
             controller.value = controller.value - 0.03;
-            controller.reverse();
+            controller.stop();
+            awaitAnimation();
             break;
 
           case ProgressStatus.finished:
-            print('finished');
             Navigator.of(context).pushReplacementNamed(Routes.home);
             break;
 
