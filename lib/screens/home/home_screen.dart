@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
+import 'package:picture_learning/global/music/music_cubit.dart';
 import 'package:picture_learning/screens/home/cubit/home_cubit.dart';
 import 'package:picture_learning/screens/home/widgets/home_card_item.dart';
 import 'package:picture_learning/screens/home/widgets/home_resumen.dart';
@@ -20,9 +21,19 @@ class HomeScreen extends StatelessWidget {
     final user = watch.user;
     final fields = watch.fields;
 
+    pressEffect() {
+      context.read<MusicCubit>().playeffect(
+            watch.press,
+          );
+    }
+
+    ;
+
     return SafeArea(
       child: Scaffold(
-        appBar: const HomeAppar(),
+        appBar: HomeAppar(
+          pressEffect: pressEffect,
+        ),
         body: Column(
           // Resumen
           children: [
@@ -59,9 +70,12 @@ class HomeScreen extends StatelessWidget {
                                   user?.perfectLevels,
                                   topic.uid,
                                 ),
+                                pressEffect: pressEffect,
                               );
                             }).toList() ??
                             [],
+
+                        pressEffect: pressEffect,
                       );
                     },
                   ),

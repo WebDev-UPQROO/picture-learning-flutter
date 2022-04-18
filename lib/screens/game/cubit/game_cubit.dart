@@ -1,30 +1,49 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:flutter/animation.dart';
+import 'package:picture_learning/global/music/music_cubit.dart';
 import 'package:picture_learning/models/error.dart';
-import 'package:picture_learning/models/game/exercise.dart';
 import 'package:picture_learning/models/game/index.dart';
 import 'package:picture_learning/models/message.dart';
 import 'package:picture_learning/models/services/index.dart';
 import 'package:picture_learning/models/status.dart';
-import 'package:picture_learning/screens/game/game_screen.dart';
 
 part 'game_state.dart';
 
 class GameCubit extends Cubit<GameState> {
   GameService gameService;
-  GameCubit(this.gameService) : super(GameState.initial());
+  LocalService localService;
+  MusicCubit musicCubit;
+
+  GameCubit(
+    this.gameService,
+    this.localService,
+    this.musicCubit,
+  ) : super(GameState.initial());
+
+  void updateMusic() {
+    if (state.backgroundMusic) {
+      musicCubit.playMusic(state.song, state.backgroundMusic);
+    } else {
+      musicCubit.stopMusic();
+    }
+  }
+
+  void musicControl() {
+    emit(state.copyWith(backgroundMusic: !state.backgroundMusic));
+    updateMusic();
+  }
 
   Future<bool> getGame(String uid) async {
     try {
       emit(state.copyWith(status: Status.loading));
 
       final exercises = await gameService.getExercise(uid);
+      final music = await localService.getBackgroundMusic();
 
       emit(state.copyWith(
         uid: uid,
         exercises: exercises,
+        backgroundMusic: music,
         status: Status.loaded,
       ));
       return true;
@@ -54,8 +73,10 @@ class GameCubit extends Cubit<GameState> {
   void pressOption(String option) {
     if (option == state.exercises?[state.gameIndex].answer) {
       emit(state.copyWith(progressStatus: ProgressStatus.correct));
+      musicCubit.playeffect(state.success);
     } else {
       emit(state.copyWith(progressStatus: ProgressStatus.wrong));
+      musicCubit.playeffect(state.wrong);
     }
   }
 }

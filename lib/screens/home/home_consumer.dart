@@ -7,9 +7,6 @@ import 'package:picture_learning/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
 
-const String song =
-    'https://t4.bcbits.com/stream/bb9dd2af04c999d34566f9009452e093/mp3-128/2332696458?p=0&ts=1650239735&t=48499c6f6834c118f38d44bcc23bfd0f37bf634a&token=1650239735_02c05dad3a6217d9adc02f38c1e1813c39ea87db';
-
 class HomeConsumer extends StatefulWidget {
   const HomeConsumer(this.child, {Key? key}) : super(key: key);
   final Widget child;
@@ -71,13 +68,13 @@ class _HomeConsumerState extends State<HomeConsumer> with RouteAware {
 
   @override
   void didPopNext() {
-    const url = song;
-    context.read<MusicCubit>().playMusic(url);
+    final music = context.read<HomeCubit>().state.music;
+    context.read<MusicCubit>().playMusic(music);
   }
 
   @override
   void didPush() {
-    const url = song;
-    context.read<MusicCubit>().playMusic(url);
+    final music = context.read<HomeCubit>().state.music;
+    context.read<MusicCubit>().playMusic(music);
   }
 }

@@ -1,6 +1,9 @@
 part of 'home_cubit.dart';
 
 class HomeState {
+  String press = 'assets/audio/press.wav';
+  String music = 'assets/audio/home.mp3';
+
   Status status;
   MessageUI? message;
 

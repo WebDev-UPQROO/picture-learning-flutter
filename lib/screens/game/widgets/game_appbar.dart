@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:picture_learning/utils/null_helper.dart';
 
 class GameAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -8,9 +9,13 @@ class GameAppbar extends StatelessWidget implements PreferredSizeWidget {
   const GameAppbar({
     Key? key,
     required this.name,
+    required this.musicActive,
+    required this.musicControl,
   }) : super(key: key);
 
   final String? name;
+  final bool musicActive;
+  final Function() musicControl;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +40,11 @@ class GameAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         // Music/Mute button
         IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            true ? Icons.volume_off_rounded : Icons.volume_up_rounded,
+          onPressed: () {
+            musicControl();
+          },
+          icon: Icon(
+            musicActive ? Icons.volume_up_rounded : Icons.volume_off_rounded,
           ),
         )
       ],

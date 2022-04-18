@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:picture_learning/models/services/index.dart';
 
 part 'music_state.dart';
@@ -13,15 +16,19 @@ class MusicCubit extends Cubit<MusicState> {
           effects: AudioPlayer(),
         ));
 
-  void playMusic(String url) async {
-    final isActive = await localService.getBackgroundMusic();
-    if (isActive) {
-      AudioPlayer music = state.backgroundMusic;
+  void playMusic(String url, [bool active = false]) async {
+    AudioPlayer music = state.backgroundMusic;
+    await music.stop();
 
+    final isActive = await localService.getBackgroundMusic();
+    if (active || isActive) {
+      ByteData bytes = await rootBundle.load(url);
+      Uint8List soundbytes = bytes.buffer.asUint8List(
+        bytes.offsetInBytes,
+        bytes.lengthInBytes,
+      );
       await music.setReleaseMode(ReleaseMode.LOOP);
-      await music.stop();
-      await music.setUrl(url);
-      await music.resume();
+      await music.playBytes(soundbytes);
     }
   }
 
@@ -31,12 +38,17 @@ class MusicCubit extends Cubit<MusicState> {
   }
 
   void playeffect(String url) async {
+    AudioPlayer effects = state.effects;
+    effects.stop();
+
     final isActive = await localService.getSoundEffects();
     if (isActive) {
-      AudioPlayer effects = state.effects;
-      effects.stop();
-      effects.setUrl(url);
-      effects.resume();
+      ByteData bytes = await rootBundle.load(url);
+      Uint8List soundbytes = bytes.buffer.asUint8List(
+        bytes.offsetInBytes,
+        bytes.lengthInBytes,
+      );
+      effects.playBytes(soundbytes);
     }
   }
 }

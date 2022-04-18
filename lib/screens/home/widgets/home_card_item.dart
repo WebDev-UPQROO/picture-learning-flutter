@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/models/game/game_ui.dart';
 import 'package:picture_learning/models/game/index.dart';
 import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/utils/null_helper.dart';
@@ -10,10 +10,12 @@ class HomeCardItem extends StatelessWidget {
     Key? key,
     required this.topic,
     required this.isPerfect,
+    required this.pressEffect,
   }) : super(key: key);
 
   final Topic topic;
   final bool isPerfect;
+  final Function() pressEffect;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +32,17 @@ class HomeCardItem extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(
-          context,
-          Routes.game,
-          arguments: GameUI(
-            uid: topic.uid!,
-            name: topic.name,
-          ),
-        ),
+        onTap: () {
+          pressEffect();
+          Navigator.pushNamed(
+            context,
+            Routes.game,
+            arguments: GameUI(
+              uid: topic.uid!,
+              name: topic.name,
+            ),
+          );
+        },
         borderRadius: BorderRadius.circular(100),
         child: Stack(
           alignment: Alignment.center,

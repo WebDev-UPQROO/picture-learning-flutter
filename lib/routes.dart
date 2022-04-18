@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picture_learning/global/music/music_cubit.dart';
 import 'package:picture_learning/models/game/game_ui.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/game_service.dart';
@@ -126,6 +127,8 @@ class Routes {
           builder: (_) => BlocProvider(
             create: (context) => GameCubit(
               context.read<GameService>(),
+              context.read<LocalService>(),
+              context.read<MusicCubit>(),
             ),
             child: GameConsumer(
               uid: game.uid,

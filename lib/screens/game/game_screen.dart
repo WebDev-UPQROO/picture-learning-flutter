@@ -16,12 +16,15 @@ class GameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final watch = context.watch<GameCubit>().state;
+    final read = context.read<GameCubit>();
     final gameIndex = watch.gameIndex;
     Exercise? question = watch.exercises?[gameIndex];
 
     return Scaffold(
       appBar: GameAppbar(
         name: game.name,
+        musicActive: watch.backgroundMusic,
+        musicControl: read.musicControl,
       ),
 
       // Game Screen

@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/utils/null_helper.dart';
 
-class HomeCard extends StatelessWidget {
-  const HomeCard({
+class HomeCard extends StatefulWidget {
+  HomeCard({
     Key? key,
-    required this.image,
     required this.isPerfect,
+    required this.image,
     required this.subtitle,
     required this.title,
     required this.exercises,
+    required this.pressEffect,
   }) : super(key: key);
 
   final bool isPerfect;
@@ -18,11 +19,32 @@ class HomeCard extends StatelessWidget {
   final String? subtitle;
   final String? title;
   final List<Widget>? exercises;
+  final Function() pressEffect;
+
+  @override
+  State<HomeCard> createState() => _HomeCardState();
+}
+
+class _HomeCardState extends State<HomeCard> {
+  final ExpandableController controller = ExpandableController();
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      widget.pressEffect();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return SizedBox(
       width: size.width,
       child: Padding(
@@ -36,6 +58,7 @@ class HomeCard extends StatelessWidget {
             Card(
               clipBehavior: Clip.hardEdge,
               child: ExpandablePanel(
+                controller: controller,
                 theme: const ExpandableThemeData(hasIcon: false),
                 header: Row(
                   children: [
@@ -51,8 +74,8 @@ class HomeCard extends StatelessWidget {
                       margin: const EdgeInsets.all(24),
                       width: 80,
                       height: 80,
-                      child: isNotEmpty(image)
-                          ? Image.network(image!)
+                      child: isNotEmpty(widget.image)
+                          ? Image.network(widget.image!)
                           : Image.asset('assets/img/card_icon.png'),
                     ),
 
@@ -60,7 +83,7 @@ class HomeCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(getString(subtitle)),
+                        Text(getString(widget.subtitle)),
                         const SizedBox(
                           width: 40,
                           child: Divider(
@@ -69,7 +92,7 @@ class HomeCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          getString(title),
+                          getString(widget.title),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: Style.h4,
@@ -80,7 +103,7 @@ class HomeCard extends StatelessWidget {
                     const Spacer(),
 
                     // Perfect icon
-                    if (isPerfect)
+                    if (widget.isPerfect)
                       Image.asset(
                         'assets/icons/diamond.png',
                         width: 48,
@@ -103,7 +126,7 @@ class HomeCard extends StatelessWidget {
                         runSpacing: 20,
                         spacing: 20,
                         alignment: WrapAlignment.spaceEvenly,
-                        children: exercises ?? [],
+                        children: widget.exercises ?? [],
                       ),
                     ),
                   ],
