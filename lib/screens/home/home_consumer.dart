@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/global/music/music_cubit.dart';
 import 'package:picture_learning/main.dart';
+import 'package:picture_learning/routes.dart';
 import 'package:picture_learning/screens/home/cubit/home_cubit.dart';
 import 'package:picture_learning/utils/dialog_loading.dart';
 import 'package:picture_learning/utils/snackbar.dart';
@@ -28,8 +29,28 @@ class _HomeConsumerState extends State<HomeConsumer> with RouteAware {
             Navigator.pop(context);
             break;
 
+          case Status.validated:
+            Future.delayed(const Duration(milliseconds: 400)).then((_) {
+              Navigator.pop(context);
+
+              if (state.isUser == false) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  Routes.loginOAuth,
+                  (route) => false,
+                );
+              } else {
+                context.read<HomeCubit>().getHome();
+                final music = context.read<HomeCubit>().state.music;
+                context.read<MusicCubit>().playMusic(music);
+              }
+            });
+            break;
+
           case Status.error:
-            Navigator.pop(context);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.loginOAuth,
+              (route) => false,
+            );
             snackbarError(context, state.message!.description);
             break;
 
@@ -45,7 +66,7 @@ class _HomeConsumerState extends State<HomeConsumer> with RouteAware {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read<HomeCubit>().getHome();
+      context.read<HomeCubit>().getIsUser();
     });
   }
 
@@ -68,12 +89,6 @@ class _HomeConsumerState extends State<HomeConsumer> with RouteAware {
 
   @override
   void didPopNext() {
-    final music = context.read<HomeCubit>().state.music;
-    context.read<MusicCubit>().playMusic(music);
-  }
-
-  @override
-  void didPush() {
     final music = context.read<HomeCubit>().state.music;
     context.read<MusicCubit>().playMusic(music);
   }

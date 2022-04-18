@@ -18,8 +18,6 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
   Widget build(BuildContext context) {
     return BlocListener<OAuthCubit, OAuthState>(
       listener: (context, state) {
-        final read = context.read<OAuthCubit>();
-
         switch (state.status) {
           case Status.loading:
             dialogLoading(context);
@@ -28,24 +26,19 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
           case Status.loaded:
             Navigator.pop(context);
             if (state.firstTime) {
-              read.putFirstTime();
-            } else {
-              read.getIsUser();
+              Navigator.pushNamed(
+                context,
+                Routes.welcomeApp,
+              );
             }
             break;
 
           case Status.validated:
             Navigator.pop(context);
-            if (state.isUser == true) {
-              Navigator.pushReplacementNamed(context, Routes.home);
-            }
-            break;
-
-          case Status.finished:
-            Navigator.pop(context);
-            Navigator.pushNamed(
+            Navigator.pushNamedAndRemoveUntil(
               context,
-              Routes.welcomeApp,
+              Routes.home,
+              (Route<dynamic> route) => false,
             );
             break;
 

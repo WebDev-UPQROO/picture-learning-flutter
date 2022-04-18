@@ -34,30 +34,6 @@ class OAuthCubit extends Cubit<OAuthState> {
     }
   }
 
-  void putFirstTime() async {
-    emit(state.copyWith(status: Status.finished));
-  }
-
-  void getIsUser() async {
-    try {
-      emit(state.copyWith(
-        status: Status.loading,
-      ));
-
-      final isUser = await localService.isUser();
-
-      emit(state.copyWith(
-        isUser: isUser,
-        status: Status.validated,
-      ));
-    } catch (e) {
-      emit(state.copyWith(
-        status: Status.error,
-        message: ErrorC.errorHandler(e),
-      ));
-    }
-  }
-
   void postLogin() async {
     try {
       emit(state.copyWith(status: Status.loading));
@@ -66,7 +42,6 @@ class OAuthCubit extends Cubit<OAuthState> {
       await localService.putUser(user);
 
       emit(state.copyWith(
-        isUser: true,
         status: Status.validated,
       ));
     } catch (e) {

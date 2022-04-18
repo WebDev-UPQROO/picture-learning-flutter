@@ -6,6 +6,7 @@ class HomeState {
 
   Status status;
   MessageUI? message;
+  bool? isUser;
 
   // Data
   User? user;
@@ -14,6 +15,7 @@ class HomeState {
   HomeState({
     required this.status,
     this.message,
+    this.isUser,
     this.user,
     this.fields,
   });
@@ -23,12 +25,14 @@ class HomeState {
   HomeState copyWith({
     Status? status,
     MessageUI? message,
+    bool? isUser,
     User? user,
     List<Field>? fields,
   }) {
     return HomeState(
       status: status ?? this.status,
       message: message ?? this.message,
+      isUser: isUser ?? this.isUser,
       user: user ?? this.user,
       fields: fields ?? this.fields,
     );

@@ -19,7 +19,7 @@ import 'package:picture_learning/screens/settings_screen/settings_consumer.dart'
 import 'package:picture_learning/screens/settings_screen/settings_screen.dart';
 
 class Routes {
-  static const String initialRoute = loginOAuth;
+  static const String initialRoute = home;
 
   // Auth
   static const loginOAuth = 'OAuth';

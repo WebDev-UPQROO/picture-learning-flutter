@@ -42,4 +42,24 @@ class HomeCubit extends Cubit<HomeState> {
       ));
     }
   }
+
+  Future getIsUser() async {
+    try {
+      emit(state.copyWith(
+        status: Status.loading,
+      ));
+
+      final isUser = await localService.isUser();
+
+      emit(state.copyWith(
+        isUser: isUser,
+        status: Status.validated,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: Status.error,
+        message: ErrorC.errorHandler(e),
+      ));
+    }
+  }
 }
