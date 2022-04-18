@@ -18,7 +18,11 @@ class GameScreen extends StatelessWidget {
     final watch = context.watch<GameCubit>().state;
     final read = context.read<GameCubit>();
     final gameIndex = watch.gameIndex;
-    Exercise? question = watch.exercises?[gameIndex];
+    Exercise? question;
+
+    if ((watch.exercises?.length ?? 0) > 0) {
+      question = watch.exercises?[gameIndex];
+    }
 
     return Scaffold(
       appBar: GameAppbar(
