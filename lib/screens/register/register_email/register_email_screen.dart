@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/routes_auth.dart';
 import 'package:picture_learning/screens/screens.dart';
-import 'package:picture_learning/utils/validators.dart';
+import 'package:picture_learning/utils/validator.dart';
 import 'package:picture_learning/widgets/form/form_auth.dart';
 
 class RegisterEmailScreen extends StatelessWidget {
@@ -38,7 +38,7 @@ class RegisterEmailScreen extends StatelessWidget {
 
         Navigator.pushNamed(
           context,
-          Routes.registerPassword,
+          RoutesAuth.registerPassword,
           arguments: arg,
         );
       },

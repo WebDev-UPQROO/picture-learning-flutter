@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/global/music/music_cubit.dart';
 import 'package:picture_learning/main.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/routes_auth.dart';
 import 'package:picture_learning/screens/home/cubit/home_cubit.dart';
-import 'package:picture_learning/utils/dialog_loading.dart';
+import 'package:picture_learning/utils/dialog.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
@@ -35,7 +35,7 @@ class _HomeConsumerState extends State<HomeConsumer> with RouteAware {
 
               if (state.isUser == false) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  Routes.loginOAuth,
+                  RoutesAuth.loginOAuth,
                   (route) => false,
                 );
               } else {
@@ -48,7 +48,7 @@ class _HomeConsumerState extends State<HomeConsumer> with RouteAware {
 
           case Status.error:
             Navigator.of(context).pushNamedAndRemoveUntil(
-              Routes.loginOAuth,
+              RoutesAuth.loginOAuth,
               (route) => false,
             );
             snackbarError(context, state.message!.description);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/routes.dart';
-import 'package:picture_learning/utils/null_helper.dart';
+import 'package:picture_learning/routes/routes_home.dart';
+import 'package:picture_learning/utils/nullable.dart';
 import 'package:picture_learning/widgets/appbar/appbar_light.dart';
 import 'cubit/settings_cubit.dart';
 import 'widgets/index.dart';
@@ -83,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
                       subtitle: 'Mas iformación acerca del equipo de desarollo',
                       onPressed: () => Navigator.pushNamed(
                         context,
-                        Routes.credits,
+                        RoutesHome.credits,
                       ),
                     ),
                   ],

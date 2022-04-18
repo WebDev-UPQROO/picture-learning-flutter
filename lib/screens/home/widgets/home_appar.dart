@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/routes_home.dart';
 
 class HomeAppar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -39,14 +38,14 @@ class HomeAppar extends StatelessWidget implements PreferredSizeWidget {
           IconButton(
             onPressed: () {
               pressEffect();
-              Navigator.pushNamed(context, Routes.reviews);
+              Navigator.pushNamed(context, RoutesHome.reviews);
             },
             icon: const Icon(Icons.comment_rounded),
           ),
           IconButton(
             onPressed: () {
               pressEffect();
-              Navigator.pushNamed(context, Routes.appSettings);
+              Navigator.pushNamed(context, RoutesHome.appSettings);
             },
             icon: const Icon(Icons.settings),
           ),

@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/global/music/music_cubit.dart';
-import 'package:picture_learning/models/services/auth_service.dart';
-import 'package:picture_learning/models/services/game_service.dart';
-import 'package:picture_learning/models/services/local_service.dart';
-import 'package:picture_learning/models/services/user_service.dart';
-import 'package:picture_learning/routes.dart';
-import 'package:picture_learning/services/auth_serv.dart';
-import 'package:picture_learning/services/game_serv.dart';
-import 'package:picture_learning/services/local_serv.dart';
-import 'package:picture_learning/services/user_serv.dart';
+import 'package:picture_learning/provider_bloc.dart';
+import 'package:picture_learning/provider_repository.dart';
+import 'package:picture_learning/routes/routes.dart';
 
-void main() => runApp(const AppRepository());
+void main() => runApp(const AppGlobals());
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
@@ -32,35 +24,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppRepository extends StatelessWidget {
-  const AppRepository({Key? key}) : super(key: key);
+class AppGlobals extends StatelessWidget {
+  const AppGlobals({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider<AuthService>(
-            create: (context) => AuthServ(),
-          ),
-          RepositoryProvider<LocalService>(
-            create: (context) => LocalServ(),
-          ),
-          RepositoryProvider<UserService>(
-            create: (context) => UserServ(),
-          ),
-          RepositoryProvider<GameService>(
-            create: (context) => GameServ(),
-          ),
-        ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => MusicCubit(
-                context.read<LocalService>(),
-              ),
-            ),
-          ],
-          child: const MyApp(),
-        ));
+    return const ProviderRepository(
+      child: ProviderBloc(
+        child: MyApp(),
+      ),
+    );
   }
 }

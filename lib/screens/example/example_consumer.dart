@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/screens/example/cubit/example_cubit.dart';
-import 'package:picture_learning/utils/dialog_loading.dart';
+import 'package:picture_learning/utils/dialog.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 
 import 'package:flutter/material.dart';

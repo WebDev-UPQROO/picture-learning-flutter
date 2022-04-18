@@ -3,7 +3,7 @@ import 'package:picture_learning/constants/lang.dart';
 
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/utils/snackbar.dart';
-import 'package:picture_learning/utils/validators.dart';
+import 'package:picture_learning/utils/validator.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
 import 'package:picture_learning/widgets/scroll_keyboard.dart';

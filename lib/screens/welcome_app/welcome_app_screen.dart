@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/services/local_service.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/routes_auth.dart';
 import 'widgets/index.dart';
 
 //for storing form state.
@@ -13,7 +13,7 @@ class WelcomeAppScreen extends StatelessWidget {
 
     Navigator.pushNamedAndRemoveUntil(
       context,
-      Routes.loginOAuth,
+      RoutesAuth.loginOAuth,
       (Route<dynamic> route) => false,
     );
   }
@@ -54,7 +54,7 @@ class WelcomeAppScreen extends StatelessWidget {
             context.read<LocalService>().putFirstTime();
             Navigator.pushNamedAndRemoveUntil(
               context,
-              Routes.loginOAuth,
+              RoutesAuth.loginOAuth,
               (Route<dynamic> route) => false,
             );
           },

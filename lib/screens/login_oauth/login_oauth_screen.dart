@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/routes_auth.dart';
 import 'package:picture_learning/screens/login_oauth/cubit/oauth_cubit.dart';
 import 'package:picture_learning/widgets/buttons/elevated_button_icon_white.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
@@ -62,7 +62,7 @@ class LoginOAuthScreen extends StatelessWidget {
                     // Email Login
                     ElevatedButtonIconWhite(
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.loginEmail);
+                        Navigator.pushNamed(context, RoutesAuth.loginEmail);
                       },
                       icon: const Icon(Icons.email),
                       label: const Text('Iniciar Sesión con tu email'),
@@ -71,7 +71,7 @@ class LoginOAuthScreen extends StatelessWidget {
                     // Register with email
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.registerEmail);
+                        Navigator.pushNamed(context, RoutesAuth.registerEmail);
                       },
                       style: TextButton.styleFrom(primary: Style.white),
                       child: RichText(

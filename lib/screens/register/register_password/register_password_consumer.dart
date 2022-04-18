@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/routes_auth.dart';
 import 'package:picture_learning/screens/screens.dart';
-import 'package:picture_learning/utils/dialog_loading.dart';
+import 'package:picture_learning/utils/dialog.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
@@ -26,7 +26,7 @@ class _RegisterPasswordConsumerState extends State<RegisterPasswordConsumer> {
 
           case Status.finished:
             Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.loginEmail);
+            Navigator.pushNamed(context, RoutesAuth.loginEmail);
             snackbarSuccess(context, state.message!.description);
             break;
 

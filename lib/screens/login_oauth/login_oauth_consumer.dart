@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/status.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/index.dart';
 import 'package:picture_learning/screens/login_oauth/cubit/oauth_cubit.dart';
-import 'package:picture_learning/utils/dialog_loading.dart';
+import 'package:picture_learning/utils/dialog.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 
 class LoginOAuthConsumer extends StatefulWidget {
@@ -28,7 +28,7 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
             if (state.firstTime) {
               Navigator.pushNamed(
                 context,
-                Routes.welcomeApp,
+                RoutesInitial.welcomeApp,
               );
             }
             break;
@@ -37,7 +37,7 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
             Navigator.pop(context);
             Navigator.pushNamedAndRemoveUntil(
               context,
-              Routes.home,
+              RoutesHome.home,
               (Route<dynamic> route) => false,
             );
             break;

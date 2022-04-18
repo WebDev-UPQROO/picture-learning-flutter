@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/game/index.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/routes_home.dart';
 import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
 import 'package:picture_learning/screens/game/widgets/game_background.dart';
 import 'package:picture_learning/widgets/anim/animated_bar.dart';
@@ -69,7 +68,7 @@ class _GameProgressbarState extends State<GameProgressbar>
             break;
 
           case ProgressStatus.finished:
-            Navigator.of(context).pushReplacementNamed(Routes.home);
+            Navigator.of(context).pushReplacementNamed(RoutesHome.home);
             break;
 
           default:

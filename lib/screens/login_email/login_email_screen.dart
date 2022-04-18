@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/screens/login_email/cubit/email_cubit.dart';
-import 'package:picture_learning/utils/validators.dart';
+import 'package:picture_learning/utils/validator.dart';
 import 'package:picture_learning/widgets/form/form_auth.dart';
 import 'package:provider/provider.dart';
 

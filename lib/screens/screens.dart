@@ -19,3 +19,17 @@ export 'register/register_password/register_password_consumer.dart';
 export 'home/home_screen.dart';
 export 'home/cubit/home_cubit.dart';
 export 'home/home_consumer.dart';
+
+export 'credits/credits_screen.dart';
+
+export 'comments_screen/comments_screen.dart';
+export 'comments_screen/cubit/comments_cubit.dart';
+export 'comments_screen/comments_consumer.dart';
+
+export 'game/game_screen.dart';
+export 'game/cubit/game_cubit.dart';
+export 'game/game_consumer.dart';
+
+export 'settings_screen/settings_screen.dart';
+export 'settings_screen/cubit/settings_cubit.dart';
+export 'settings_screen/settings_consumer.dart';

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/game/index.dart';
-import 'package:picture_learning/routes.dart';
-import 'package:picture_learning/utils/null_helper.dart';
+import 'package:picture_learning/routes/routes_game.dart';
+import 'package:picture_learning/utils/nullable.dart';
 
 class HomeCardItem extends StatelessWidget {
   const HomeCardItem({
@@ -36,7 +35,7 @@ class HomeCardItem extends StatelessWidget {
           pressEffect();
           Navigator.pushNamed(
             context,
-            Routes.game,
+            RoutesGame.game,
             arguments: GameUI(
               uid: topic.uid!,
               name: topic.name,
