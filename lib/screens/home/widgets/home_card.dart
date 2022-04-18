@@ -4,7 +4,7 @@ import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/utils/null_helper.dart';
 
 class HomeCard extends StatefulWidget {
-  HomeCard({
+  const HomeCard({
     Key? key,
     required this.isPerfect,
     required this.image,

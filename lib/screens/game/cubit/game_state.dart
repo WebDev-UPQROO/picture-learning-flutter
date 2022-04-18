@@ -3,7 +3,7 @@ part of 'game_cubit.dart';
 class GameState {
   String song = 'assets/audio/game.mp3';
   String success = 'assets/audio/success.mp3';
-  String wrong = 'assets/audio/press.wav';
+  String wrong = 'assets/audio/error.wav';
 
   String? uid;
 

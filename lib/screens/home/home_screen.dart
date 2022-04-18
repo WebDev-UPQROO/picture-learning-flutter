@@ -27,8 +27,6 @@ class HomeScreen extends StatelessWidget {
           );
     }
 
-    ;
-
     return SafeArea(
       child: Scaffold(
         appBar: HomeAppar(
