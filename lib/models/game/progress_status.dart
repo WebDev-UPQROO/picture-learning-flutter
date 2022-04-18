@@ -1,6 +1,6 @@
 enum ProgressStatus {
   initial,
-  start,
+  playing,
   correct,
   wrong,
   finished,

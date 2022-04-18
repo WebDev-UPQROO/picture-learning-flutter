@@ -36,7 +36,7 @@ class GameScreen extends StatelessWidget {
         // Initial Screen
         initalScreen: GameInitial(
           mesageInitial: watch.mesageInitial,
-          gameStatus: watch.gameStatus,
+          progressStatus: watch.progressStatus,
         ),
 
         // ProgressBar
@@ -54,14 +54,15 @@ class GameScreen extends StatelessWidget {
                     const Spacer(),
                     GameImage(
                       question: question,
-                      gameStatus: watch.gameStatus,
+                      progressStatus: watch.progressStatus,
+                      errorEnable: watch.erroreffect,
                     ),
 
                     // Options
                     const Spacer(),
                     GameButtons(
                       question: question,
-                      gameStatus: watch.gameStatus,
+                      progressStatus: watch.progressStatus,
                     ),
                     const Spacer(),
                   ],

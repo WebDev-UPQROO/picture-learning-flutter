@@ -12,8 +12,8 @@ class GameState {
   bool backgroundMusic;
 
   int gameIndex;
-  GameStatus gameStatus;
   ProgressStatus progressStatus;
+  bool erroreffect;
 
   Status status;
   MessageUI? message;
@@ -24,8 +24,8 @@ class GameState {
     this.exercises,
     required this.backgroundMusic,
     this.gameIndex = 0,
-    required this.gameStatus,
     required this.progressStatus,
+    this.erroreffect = false,
     required this.status,
     this.message,
   });
@@ -33,7 +33,6 @@ class GameState {
   GameState.initial()
       : this(
           status: Status.initial,
-          gameStatus: GameStatus.initial,
           progressStatus: ProgressStatus.initial,
           backgroundMusic: false,
         );
@@ -44,8 +43,8 @@ class GameState {
     List<Exercise>? exercises,
     bool? backgroundMusic,
     int? gameIndex,
-    GameStatus? gameStatus,
     ProgressStatus? progressStatus,
+    bool? erroreffect,
     Status? status,
     MessageUI? message,
   }) {
@@ -55,8 +54,8 @@ class GameState {
       exercises: exercises ?? this.exercises,
       backgroundMusic: backgroundMusic ?? this.backgroundMusic,
       gameIndex: gameIndex ?? this.gameIndex,
-      gameStatus: gameStatus ?? this.gameStatus,
       progressStatus: progressStatus ?? this.progressStatus,
+      erroreffect: erroreffect ?? this.erroreffect,
       status: status ?? this.status,
       message: message ?? this.message,
     );

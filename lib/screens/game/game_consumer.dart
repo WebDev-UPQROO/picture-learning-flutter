@@ -87,8 +87,7 @@ class _GameConsumerState extends State<GameConsumer> {
           // If all the text was displayed, the game starts
           if (index == gameInitial.length - 1) {
             context.read<GameCubit>().startGame(
-                  gameStatus: GameStatus.active,
-                  progressStatus: ProgressStatus.start,
+                  progressStatus: ProgressStatus.playing,
                 );
             timer.cancel();
           }

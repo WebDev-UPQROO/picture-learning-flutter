@@ -51,7 +51,7 @@ class _GameProgressbarState extends State<GameProgressbar>
     return BlocListener<GameCubit, GameState>(
       listener: (context, state) {
         switch (state.progressStatus) {
-          case ProgressStatus.start:
+          case ProgressStatus.playing:
             controller.reverse();
             break;
 

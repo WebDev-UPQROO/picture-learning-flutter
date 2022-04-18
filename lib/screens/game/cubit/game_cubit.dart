@@ -31,7 +31,7 @@ class GameCubit extends Cubit<GameState> {
   void musicControl() {
     emit(state.copyWith(
       backgroundMusic: !state.backgroundMusic,
-      progressStatus: ProgressStatus.initial,
+      progressStatus: ProgressStatus.playing,
     ));
     updateMusic();
   }
@@ -61,37 +61,44 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void startGame({
-    GameStatus? gameStatus,
     ProgressStatus? progressStatus,
     String? messageInitial,
   }) {
     // Initial Text
     emit(state.copyWith(
-      gameStatus: gameStatus,
       progressStatus: progressStatus,
       mesageInitial: messageInitial,
     ));
   }
 
-  void pressOption(String option) {
-    ProgressStatus progressStatus;
+  void pressOption(String option) async {
     if (option == state.exercises?[state.gameIndex].answer) {
-      progressStatus = ProgressStatus.correct;
+      emit(state.copyWith(
+        progressStatus: ProgressStatus.correct,
+      ));
       musicCubit.playeffect(state.success);
     } else {
-      progressStatus = ProgressStatus.wrong;
+      emit(state.copyWith(
+        progressStatus: ProgressStatus.wrong,
+        erroreffect: true,
+      ));
       musicCubit.playeffect(state.wrong);
     }
 
-    if (state.gameIndex >= state.exercises!.length - 1) {
-      emit(state.copyWith(progressStatus: ProgressStatus.finished));
-      return;
-    }
+    await Future.delayed(const Duration(seconds: 1));
 
-    emit(state.copyWith(
-      progressStatus: progressStatus,
-      gameIndex: state.gameIndex + 1,
-    ));
+    if (!isClosed) {
+      if (state.gameIndex >= state.exercises!.length - 1) {
+        emit(state.copyWith(progressStatus: ProgressStatus.finished));
+        return;
+      }
+
+      emit(state.copyWith(
+        progressStatus: ProgressStatus.playing,
+        gameIndex: state.gameIndex + 1,
+        erroreffect: false,
+      ));
+    }
   }
 
   void finishGame() {
