@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Global styles
 class Style {
   static String appName = "Picture Learning";
 

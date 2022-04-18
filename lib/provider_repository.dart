@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:picture_learning/models/services/index.dart';
 import 'package:picture_learning/services/index.dart';
 
+// Contains all the global repositories/services of the app
 class ProviderRepository extends StatelessWidget {
   const ProviderRepository({
     Key? key,

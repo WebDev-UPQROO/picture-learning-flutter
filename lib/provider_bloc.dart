@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:picture_learning/global/music/music_cubit.dart';
 import 'package:picture_learning/models/services/index.dart';
 
+// Contains all the global blocs of the app
 class ProviderBloc extends StatelessWidget {
   const ProviderBloc({
     Key? key,

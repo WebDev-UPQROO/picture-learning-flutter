@@ -26,9 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
       ));
 
       final user = await localService.getUser();
-      final fields = await gameService.getFields(
-        user.career ?? Defaults.faculty,
-      );
+      final fields = await gameService.getFields(user.facultyId!);
 
       emit(state.copyWith(
         user: user,

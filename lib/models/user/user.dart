@@ -2,50 +2,40 @@ class User {
   User({
     this.username,
     this.email,
-    this.status,
-    this.google,
-    this.career,
     this.perfectFields,
     this.perfectLevels,
     this.uid,
+    this.facultyId,
   });
 
   final String? username;
   final String? email;
-  final bool? status;
-  final bool? google;
-  final String? career;
   final List<String>? perfectFields;
   final List<String>? perfectLevels;
   final String? uid;
+  final String? facultyId;
 
   User copyWith({
     String? username,
     String? email,
-    bool? status,
-    bool? google,
-    String? career,
     List<String>? perfectFields,
     List<String>? perfectLevels,
     String? uid,
+    String? facultyId,
   }) =>
       User(
         username: username ?? this.username,
         email: email ?? this.email,
-        status: status ?? this.status,
-        google: google ?? this.google,
-        career: career ?? this.career,
         perfectFields: perfectFields ?? this.perfectFields,
         perfectLevels: perfectLevels ?? this.perfectLevels,
         uid: uid ?? this.uid,
+        facultyId: facultyId ?? this.facultyId,
       );
 
   factory User.fromMap(Map<String, dynamic> json) => User(
         username: json["username"],
         email: json["email"],
-        status: json["status"],
-        google: json["google"],
-        career: json["career"],
+        facultyId: json["facultyId"],
         perfectFields: json["perfect_fields"] == null
             ? null
             : List<String>.from(json["perfect_fields"].map((x) => x)),
@@ -58,9 +48,7 @@ class User {
   Map<String, dynamic> toMap() => {
         "username": username,
         "email": email,
-        "status": status,
-        "google": google,
-        "career": career,
+        "facultyId": facultyId,
         "perfect_fields": perfectFields == null
             ? null
             : List<dynamic>.from(perfectFields!.map((x) => x)),

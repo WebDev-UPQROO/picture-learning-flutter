@@ -1,3 +1,5 @@
+// These are messages to show users when an error or an update occurs
+//
 class Lang {
   // Default
   static const String errorTitleDefault = 'Algo salió mal';
@@ -15,6 +17,10 @@ class Lang {
       'Tu cuenta ha sido creada exitosamente';
   static const String errorTextRegisterPassword =
       'Las contraseñas no coinciden';
+
+  // Login
+  static const String googleNullError =
+      'No se pudo obtener la información de tu cuenta';
 
   // Settings
   static const String successTextSettings =

@@ -6,6 +6,7 @@ import 'package:picture_learning/routes/routes.dart';
 
 void main() => runApp(const AppGlobals());
 
+// Global routes observer to validate when a screen is covered by a new one
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 class MyApp extends StatelessWidget {
@@ -19,11 +20,13 @@ class MyApp extends StatelessWidget {
       theme: Style.lightTheme,
       onGenerateRoute: Routes.routes,
       initialRoute: Routes.initialRoute,
+      // The observer is set in the application
       navigatorObservers: [routeObserver],
     );
   }
 }
 
+// Add the global repositories and blocs to the application
 class AppGlobals extends StatelessWidget {
   const AppGlobals({Key? key}) : super(key: key);
 
