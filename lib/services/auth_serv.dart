@@ -39,10 +39,7 @@ class AuthServ implements AuthService {
     final response = await httpClient.post(
       Uri.parse('${API.auth}/google'),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "id_token": autenticated.idToken,
-        "facultyId": "62488ef3a780e9be1149cdd7",
-      }),
+      body: jsonEncode({"id_token": autenticated.idToken}),
     );
 
     await GoogleSignIn().signOut();
