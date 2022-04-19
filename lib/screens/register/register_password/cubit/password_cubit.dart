@@ -19,7 +19,7 @@ class PasswordCubit extends Cubit<PasswordState> {
       await userService.register(username, email, password);
 
       emit(state.copyWith(
-        message: MessageSuccess(message: Lang.successTextRegister),
+        message: MessageSuccess(Lang.successRegister),
         status: Status.finished,
       ));
     } catch (e) {

@@ -1,8 +1,10 @@
 import 'package:picture_learning/constants/api.dart';
-import 'package:picture_learning/models/response_api.dart';
+import 'package:picture_learning/services/validators/validators_general.dart';
 import 'package:picture_learning/models/services/user_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:picture_learning/services/validators/validators_user.dart';
 
 class UserServ implements UserService {
   final http.Client httpClient = http.Client();
@@ -25,7 +27,7 @@ class UserServ implements UserService {
         )
         .timeout(API.timeout);
 
-    ResponseAPI.getData(response);
+    ValidatorsUser.getRegister(response);
   }
 
   @override
@@ -43,7 +45,7 @@ class UserServ implements UserService {
         )
         .timeout(API.timeout);
 
-    ResponseAPI.getData(response);
+    ValidatorsGeneral.getData(response);
   }
 
   @override
@@ -63,7 +65,7 @@ class UserServ implements UserService {
         )
         .timeout(API.timeout);
 
-    ResponseAPI.getData(response);
+    ValidatorsUser.getPassowrd(response);
   }
 
   @override

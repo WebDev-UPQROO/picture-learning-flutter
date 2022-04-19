@@ -41,7 +41,7 @@ class _GameConsumerState extends State<GameConsumer> {
             Navigator.pop(context);
             if (state.exercises?.isEmpty ?? true) {
               Navigator.pop(context);
-              snackbarError(context, Lang.gameNull);
+              snackbarError(context, Lang.errorGameNull);
             }
             break;
 
@@ -79,6 +79,7 @@ class _GameConsumerState extends State<GameConsumer> {
             break;
 
           case Status.error:
+            Navigator.pop(context);
             Navigator.pop(context);
             snackbarError(context, state.message!.description);
             break;

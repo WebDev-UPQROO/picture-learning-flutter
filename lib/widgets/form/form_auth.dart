@@ -147,7 +147,7 @@ class _FormAuthState extends State<FormAuth> {
                                       textController2.text) {
                                 snackbarError(
                                   context,
-                                  Lang.errorTextRegisterPassword,
+                                  Lang.errorRegisterPassword,
                                 );
                                 return;
                               }

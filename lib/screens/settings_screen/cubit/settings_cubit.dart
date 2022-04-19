@@ -56,9 +56,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       emit(state.copyWith(
         user: newUser,
-        message: MessageSuccess(
-          message: Lang.successTextSettings,
-        ),
+        message: MessageSuccess(Lang.successSettings),
         status: Status.validated,
       ));
     } catch (e) {
@@ -81,9 +79,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       emit(state.copyWith(
         status: Status.validated,
-        message: MessageSuccess(
-          message: Lang.successTextSettings,
-        ),
+        message: MessageSuccess(Lang.successSettings),
       ));
     } catch (e) {
       emit(state.copyWith(

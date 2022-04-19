@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:picture_learning/constants/api.dart';
 import 'package:picture_learning/models/game/index.dart';
-import 'package:picture_learning/models/response_api.dart';
+import 'package:picture_learning/services/validators/validators_general.dart';
 import 'package:picture_learning/models/services/game_service.dart';
 
 import 'package:http/http.dart' as http;
@@ -18,7 +18,7 @@ class GameServ implements GameService {
       headers: {'Content-Type': 'application/json'},
     ).timeout(API.timeout);
 
-    return (ResponseAPI.getData(response) as List)
+    return (ValidatorsGeneral.getData(response) as List)
         .map((item) => Field.fromMap(item))
         .toList();
   }
@@ -30,7 +30,7 @@ class GameServ implements GameService {
       headers: {'Content-Type': 'application/json'},
     ).timeout(API.timeout);
 
-    return (ResponseAPI.getData(response) as List)
+    return (ValidatorsGeneral.getData(response) as List)
         .map((item) => Exercise.fromMap(item))
         .toList();
   }
@@ -45,6 +45,6 @@ class GameServ implements GameService {
         )
         .timeout(API.timeout);
 
-    return User.fromMap(ResponseAPI.getData(response));
+    return User.fromMap(ValidatorsGeneral.getData(response));
   }
 }

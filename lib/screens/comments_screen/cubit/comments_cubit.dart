@@ -42,7 +42,7 @@ class CommentsCubit extends Cubit<CommentsState> {
       emit(state.copyWith(
         comment: text,
         status: Status.loaded,
-        message: MessageSuccess(message: Lang.reviewSuccess),
+        message: MessageSuccess(Lang.reviewSuccess),
       ));
     } catch (e) {
       emit(state.copyWith(

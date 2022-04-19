@@ -1,36 +1,45 @@
 // These are messages to show users when an error or an update occurs
 //
 class Lang {
-  // Default
-  static const String errorTitleDefault = 'Algo salió mal';
-  static const String errorTextDefault = 'Por favor, intenta mas tarde';
+  // Default error
+  static const String errorDefault = 'Por favor, intenta mas tarde';
 
-  // API
-  static const String errorTextAPI = 'Error en el servidor';
+  // Internet error
+  static const String errorConnction = 'Verifica tu conexión a internet';
 
-  // Connection
-  static const String errorTitleConnection = 'Error de conexion';
-  static const String errorTextConnction = 'Verifica tu conexión a internet';
+  // API error
+  static const String errorAPI500 =
+      'Error en el servidor, no se cargo la informción';
 
-  // Register
-  static const String successTextRegister =
-      'Tu cuenta ha sido creada exitosamente';
-  static const String errorTextRegisterPassword =
-      'Las contraseñas no coinciden';
+  // Login error
+  static const String errorLogin400 = 'Usuario y contraseña obligatorios';
+  static const String errorLogin401 = 'Usuario o contraseña incorrectos';
 
-  // Login
-  static const String googleNullError =
+  // Register success
+  static const String successRegister = 'Tu cuenta ha sido creada exitosamente';
+  static const String errorRegisterPassword = 'Las contraseñas no coinciden';
+
+  // Register errors
+  static const String errorRegister400 =
+      'No se pudo crear el usuario, intenta con otro correo o username';
+  static const String errorGoogleOAuth400 =
       'No se pudo obtener la información de tu cuenta';
+  static const String errorGoogleOAuth401 =
+      'Tu cuenta de google esta inactiva, ingresa con otra cuenta';
 
-  // Settings
-  static const String successTextSettings =
-      'Información actualizada exitosamente';
+  // Settings success
+  static const String successSettings = 'Información actualizada exitosamente';
 
-  // Comments
+  // Password error
+  static const String errorPassword500 = 'No se pudo actuallizar la contraseña';
+
+  // Comments success
   static const String reviewError = 'Por favor, agrega un comentario';
   static const String reviewSuccess = 'Gracias por tu comentario';
+
+  // Comments errors
   static const String reviewSpam = 'Ya has enviado un comentario recientemente';
 
-  // Game
-  static const String gameNull = 'El nivel no cargó correctamente';
+  // Game error
+  static const String errorGameNull = 'El nivel no cargó correctamente';
 }

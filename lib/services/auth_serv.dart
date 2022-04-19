@@ -1,11 +1,11 @@
 import 'package:picture_learning/constants/api.dart';
 import 'package:picture_learning/constants/lang.dart';
-import 'package:picture_learning/models/response_api.dart';
 import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/user/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:picture_learning/services/validators/validators_auth.dart';
 
 class AuthServ implements AuthService {
   final http.Client httpClient = http.Client();
@@ -23,7 +23,7 @@ class AuthServ implements AuthService {
         )
         .timeout(API.timeout);
 
-    return User.fromMap(ResponseAPI.getData(response));
+    return User.fromMap(ValidatorsAuth.getLogin(response));
   }
 
   @override
@@ -38,7 +38,7 @@ class AuthServ implements AuthService {
 
     // If the account information is not received, the error is reported to the user
     if (googleUser == null) {
-      throw Lang.googleNullError;
+      throw Lang.errorGoogleOAuth400;
     }
 
     // The user is authenticated to obtain his idToken
@@ -56,6 +56,6 @@ class AuthServ implements AuthService {
 
     // Google log out
     await GoogleSignIn().signOut();
-    return User.fromMap(ResponseAPI.getData(response));
+    return User.fromMap(ValidatorsAuth.getGoogleOAuth(response));
   }
 }
