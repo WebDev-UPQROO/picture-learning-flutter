@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/services/local_service.dart';
-import 'package:picture_learning/widgets/gaps/gap_04.dart';
-import 'package:picture_learning/widgets/painters/painer_curve.dart';
-
-import '../../routes.dart';
+import 'package:picture_learning/routes/routes_auth.dart';
+import 'widgets/index.dart';
 
 //for storing form state.
 class WelcomeAppScreen extends StatelessWidget {
   WelcomeAppScreen({Key? key}) : super(key: key);
+
+  void closeWelcomeScreen(BuildContext context) {
+    context.read<LocalService>().putFirstTime();
+
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      RoutesAuth.loginOAuth,
+      (Route<dynamic> route) => false,
+    );
+  }
 
   final PageController _pageController = PageController();
   @override
@@ -18,7 +25,7 @@ class WelcomeAppScreen extends StatelessWidget {
 
     return Scaffold(
       body: PageView(controller: _pageController, children: [
-        WelcomePages(
+        WelcomePage(
           imgOnTop: Image.asset(
             'assets/img/welcome_man.png',
             height: size.height * 0.43,
@@ -32,8 +39,9 @@ class WelcomeAppScreen extends StatelessWidget {
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeIn);
           },
+          onPressedClose: () => closeWelcomeScreen(context),
         ),
-        WelcomePages(
+        WelcomePage(
           imgOnTop: Image.asset(
             'assets/img/welcome_icon.png',
             height: size.height * 0.47,
@@ -46,117 +54,13 @@ class WelcomeAppScreen extends StatelessWidget {
             context.read<LocalService>().putFirstTime();
             Navigator.pushNamedAndRemoveUntil(
               context,
-              Routes.loginOAuth,
+              RoutesAuth.loginOAuth,
               (Route<dynamic> route) => false,
             );
           },
+          onPressedClose: () => closeWelcomeScreen(context),
         )
       ]),
-    );
-  }
-}
-
-class WelcomePages extends StatelessWidget {
-  const WelcomePages({
-    Key? key,
-    required this.imgOnTop,
-    required this.onRight,
-    required this.titleText,
-    required this.descText,
-    required this.onPressButton,
-  }) : super(key: key);
-
-  final Widget imgOnTop;
-  final double onRight;
-  final String titleText;
-  final String descText;
-  final Function() onPressButton;
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
-    return Scaffold(
-      backgroundColor: Style.primary,
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              height: size.height * 0.61,
-              width: size.width,
-              child: CustomPaint(
-                painter: PainterCurve(color: Style.white),
-              ),
-            ),
-          ),
-          Positioned(
-            right: size.width * 0.07,
-            top: size.height * 0.02,
-            child: SizedBox(
-                height: 36.0,
-                width: 36.0,
-                child: IconButton(
-                  onPressed: () {
-                    context.read<LocalService>().putFirstTime();
-
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      Routes.loginOAuth,
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                  icon: const Icon(Icons.highlight_off,
-                      size: 36.0, color: Colors.white),
-                )),
-          ),
-          Positioned(
-            right: size.width * onRight,
-            top: size.height * 0.08,
-            child: imgOnTop,
-          ),
-          SafeArea(
-            child: Gap04(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: size.height * 0.45),
-                  Text(
-                    titleText,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: Style.h2,
-                      color: Style.grey800,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    descText,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: Style.h4,
-                      color: Style.grey600,
-                      fontWeight: FontWeight.w500,
-                      height: 1.7,
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.01),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: ElevatedButton.icon(
-                      onPressed: onPressButton,
-                      icon: const Icon(Icons.chevron_left),
-                      label: const Text('Siguiente'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
     );
   }
 }

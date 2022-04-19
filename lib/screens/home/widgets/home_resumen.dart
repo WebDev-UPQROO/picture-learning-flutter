@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/utils/null_helper.dart';
+import 'package:picture_learning/utils/nullable.dart';
 
 class HomeResumen extends StatelessWidget {
   const HomeResumen({

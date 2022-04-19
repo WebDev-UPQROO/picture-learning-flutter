@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/status.dart';
-import 'package:picture_learning/routes.dart';
+import 'package:picture_learning/routes/index.dart';
 import 'package:picture_learning/screens/login_oauth/cubit/oauth_cubit.dart';
-import 'package:picture_learning/utils/dialog_loading.dart';
+import 'package:picture_learning/utils/dialog.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 
 class LoginOAuthConsumer extends StatefulWidget {
@@ -18,8 +18,6 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
   Widget build(BuildContext context) {
     return BlocListener<OAuthCubit, OAuthState>(
       listener: (context, state) {
-        final read = context.read<OAuthCubit>();
-
         switch (state.status) {
           case Status.loading:
             dialogLoading(context);
@@ -28,24 +26,19 @@ class _LoginOAuthConsumerState extends State<LoginOAuthConsumer> {
           case Status.loaded:
             Navigator.pop(context);
             if (state.firstTime) {
-              read.putFirstTime();
-            } else {
-              read.getIsUser();
+              Navigator.pushNamed(
+                context,
+                RoutesInitial.welcomeApp,
+              );
             }
             break;
 
           case Status.validated:
             Navigator.pop(context);
-            if (state.isUser == true) {
-              Navigator.pushReplacementNamed(context, Routes.home);
-            }
-            break;
-
-          case Status.finished:
-            Navigator.pop(context);
-            Navigator.pushNamed(
+            Navigator.pushNamedAndRemoveUntil(
               context,
-              Routes.welcomeApp,
+              RoutesHome.home,
+              (Route<dynamic> route) => false,
             );
             break;
 

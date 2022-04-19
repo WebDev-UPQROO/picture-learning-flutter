@@ -1,6 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:picture_learning/global/music/music_cubit.dart';
+import 'package:picture_learning/main.dart';
+import 'package:picture_learning/routes/routes_auth.dart';
 import 'package:picture_learning/screens/home/cubit/home_cubit.dart';
-import 'package:picture_learning/utils/dialog_loading.dart';
+import 'package:picture_learning/utils/dialog.dart';
 import 'package:picture_learning/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:picture_learning/models/status.dart';
@@ -12,7 +15,7 @@ class HomeConsumer extends StatefulWidget {
   State<HomeConsumer> createState() => _HomeConsumerState();
 }
 
-class _HomeConsumerState extends State<HomeConsumer> {
+class _HomeConsumerState extends State<HomeConsumer> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeCubit, HomeState>(
@@ -26,8 +29,28 @@ class _HomeConsumerState extends State<HomeConsumer> {
             Navigator.pop(context);
             break;
 
+          case Status.validated:
+            Future.delayed(const Duration(milliseconds: 400)).then((_) {
+              Navigator.pop(context);
+
+              if (state.isUser == false) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  RoutesAuth.loginOAuth,
+                  (route) => false,
+                );
+              } else {
+                context.read<HomeCubit>().getHome();
+                final music = context.read<HomeCubit>().state.music;
+                context.read<MusicCubit>().playMusic(music);
+              }
+            });
+            break;
+
           case Status.error:
-            Navigator.pop(context);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              RoutesAuth.loginOAuth,
+              (route) => false,
+            );
             snackbarError(context, state.message!.description);
             break;
 
@@ -42,9 +65,31 @@ class _HomeConsumerState extends State<HomeConsumer> {
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read<HomeCubit>().getHome();
+      context.read<HomeCubit>().getIsUser();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    context.read<MusicCubit>().stopMusic();
+  }
+
+  @override
+  void didPopNext() {
+    final music = context.read<HomeCubit>().state.music;
+    context.read<MusicCubit>().playMusic(music);
   }
 }

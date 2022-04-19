@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:picture_learning/constants/api.dart';
 import 'package:picture_learning/models/error.dart';
 import 'package:picture_learning/models/game/field.dart';
 import 'package:picture_learning/models/message.dart';
@@ -26,14 +25,32 @@ class HomeCubit extends Cubit<HomeState> {
       ));
 
       final user = await localService.getUser();
-      final fields = await gameService.getFields(
-        user.career ?? Defaults.faculty,
-      );
+      final fields = await gameService.getFields(user.facultyId!);
 
       emit(state.copyWith(
         user: user,
         fields: fields,
         status: Status.loaded,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: Status.error,
+        message: ErrorC.errorHandler(e),
+      ));
+    }
+  }
+
+  Future getIsUser() async {
+    try {
+      emit(state.copyWith(
+        status: Status.loading,
+      ));
+
+      final isUser = await localService.isUser();
+
+      emit(state.copyWith(
+        isUser: isUser,
+        status: Status.validated,
       ));
     } catch (e) {
       emit(state.copyWith(

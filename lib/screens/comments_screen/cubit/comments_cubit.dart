@@ -4,7 +4,7 @@ import 'package:picture_learning/models/error.dart';
 import 'package:picture_learning/models/message.dart';
 import 'package:picture_learning/models/services/index.dart';
 import 'package:picture_learning/models/status.dart';
-import 'package:picture_learning/utils/null_helper.dart';
+import 'package:picture_learning/utils/nullable.dart';
 
 part 'comments_state.dart';
 

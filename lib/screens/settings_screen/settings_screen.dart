@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
-import 'package:picture_learning/routes.dart';
-import 'package:picture_learning/utils/null_helper.dart';
+import 'package:picture_learning/routes/routes_home.dart';
+import 'package:picture_learning/utils/nullable.dart';
 import 'package:picture_learning/widgets/appbar/appbar_light.dart';
 import 'cubit/settings_cubit.dart';
 import 'widgets/index.dart';
@@ -83,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
                       subtitle: 'Mas iformación acerca del equipo de desarollo',
                       onPressed: () => Navigator.pushNamed(
                         context,
-                        Routes.credits,
+                        RoutesHome.credits,
                       ),
                     ),
                   ],
@@ -106,131 +106,6 @@ class SettingsScreen extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-
-  Future<dynamic> showDialogEditUserName(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (_) {
-        final _form = GlobalKey<FormState>();
-        final TextEditingController username = TextEditingController();
-
-        return AlertDialog(
-          titleTextStyle: TextStyle(
-            color: Style.grey800,
-            fontSize: Style.h4,
-          ),
-          contentTextStyle: TextStyle(color: Style.grey600),
-          title: const Text('Nombre de usuario'),
-          content: SingleChildScrollView(
-            child: Form(
-              key: _form,
-              child: ListBody(
-                children: <Widget>[
-                  const Text('Cambiar nombre de usuario'),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: username,
-                    decoration: const InputDecoration(
-                      labelText: 'Nombre de usuario',
-                    ),
-                    validator: (text) {
-                      return (!(text!.length > 5))
-                          ? "*Campo obligatorio"
-                          : null;
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Aceptar'),
-              onPressed: () {
-                final isValid = _form.currentState!.validate();
-                if (!isValid) {
-                  return;
-                }
-                context.read<SettingsCubit>().putUsername(username.text);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<dynamic> showDialogEditPassword(BuildContext context) {
-    final _form = GlobalKey<FormState>();
-
-    final TextEditingController password = TextEditingController();
-    final TextEditingController newPassword = TextEditingController();
-
-    return showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          titleTextStyle: TextStyle(
-            color: Style.grey800,
-            fontSize: Style.h4,
-          ),
-          contentTextStyle: TextStyle(color: Style.grey600),
-          title: const Text('Contraseña'),
-          content: SingleChildScrollView(
-            child: Form(
-              key: _form,
-              child: ListBody(
-                children: <Widget>[
-                  const Text('Contaseña'),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: password,
-                    obscureText: true,
-                    validator: (text) {
-                      return (!(text!.length >= 8))
-                          ? "*Mínimo 8 caracteres"
-                          : null;
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Contraseña antigua',
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: newPassword,
-                    obscureText: true,
-                    validator: (text) {
-                      return (!(text!.length >= 8))
-                          ? "*Mínimo 8 caracteres"
-                          : null;
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Contraseña nueva',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Aceptar'),
-              onPressed: () {
-                final isValid = _form.currentState!.validate();
-                if (!isValid) {
-                  return;
-                }
-                context.read<SettingsCubit>().putPassword(
-                      password.text,
-                      newPassword.text,
-                    );
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

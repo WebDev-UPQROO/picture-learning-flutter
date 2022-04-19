@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:picture_learning/models/error.dart';
 import 'package:picture_learning/models/message.dart';
+import 'package:picture_learning/models/services/auth_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/models/status.dart';
 
@@ -8,7 +9,12 @@ part 'oauth_state.dart';
 
 class OAuthCubit extends Cubit<OAuthState> {
   LocalService localService;
-  OAuthCubit(this.localService) : super(OAuthState.initial());
+  AuthService authService;
+
+  OAuthCubit(
+    this.localService,
+    this.authService,
+  ) : super(OAuthState.initial());
 
   void getFirstTime() async {
     try {
@@ -28,20 +34,14 @@ class OAuthCubit extends Cubit<OAuthState> {
     }
   }
 
-  void putFirstTime() async {
-    emit(state.copyWith(status: Status.finished));
-  }
-
-  void getIsUser() async {
+  void postLogin() async {
     try {
-      emit(state.copyWith(
-        status: Status.loading,
-      ));
+      emit(state.copyWith(status: Status.loading));
 
-      final isUser = await localService.isUser();
+      final user = await authService.loginGoogle();
+      await localService.putUser(user);
 
       emit(state.copyWith(
-        isUser: isUser,
         status: Status.validated,
       ));
     } catch (e) {
