@@ -18,6 +18,13 @@ class GameImage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    Image defaultImage = Image.asset(
+      'assets/img/question.jpg',
+      height: size.height * 0.3,
+      width: size.width,
+      fit: BoxFit.cover,
+    );
+
     return ShakeAnimatedWidget(
       enabled: errorEnable,
       duration: const Duration(milliseconds: 200),
@@ -35,13 +42,12 @@ class GameImage extends StatelessWidget {
                 height: size.height * 0.3,
                 width: size.width,
                 fit: BoxFit.cover,
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return const Text('😢');
+                },
               )
-            : Image.asset(
-                'assets/img/question.jpg',
-                height: size.height * 0.3,
-                width: size.width,
-                fit: BoxFit.cover,
-              ),
+            : defaultImage,
       ),
     );
   }

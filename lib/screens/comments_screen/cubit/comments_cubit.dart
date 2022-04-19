@@ -25,22 +25,23 @@ class CommentsCubit extends Cubit<CommentsState> {
       emit(state.copyWith(status: Status.loading));
       final today = DateTime.now();
 
+      // Verifies that the user writes a comment
       if (!isNotEmpty(text)) {
         throw Lang.reviewError;
       }
 
+      // Prevent a user from submitting multiple comments on the same day
       final lastReview = await localService.getLastReview();
       final todayReview = '${today.year}${today.month}${today.day}';
-
       if (isNotEmpty(lastReview) && lastReview == todayReview) {
         throw Lang.reviewSpam;
       }
 
+      // Send the comment and update the date of the last comment allowed
       await userService.postFeed(text, state.stars);
       await localService.putLastReview(todayReview);
 
       emit(state.copyWith(
-        comment: text,
         status: Status.loaded,
         message: MessageSuccess(Lang.reviewSuccess),
       ));

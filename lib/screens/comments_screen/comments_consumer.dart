@@ -44,13 +44,4 @@ class _CommentsConsumerState extends State<CommentsConsumer> {
       child: widget.child,
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // Do something
-    });
-  }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/models/game/results_ui.dart';
-import 'package:picture_learning/routes/index.dart';
 import 'package:picture_learning/screens/results/widgets/results.dart';
 import 'package:picture_learning/utils/nullable.dart';
 

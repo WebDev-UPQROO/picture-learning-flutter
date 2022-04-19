@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:picture_learning/constants/style.dart';
 
-class TextH3BoldPrimary extends StatelessWidget {
-  const TextH3BoldPrimary(
+class TextMdGrey600 extends StatelessWidget {
+  const TextMdGrey600(
     this.child, {
     Key? key,
     this.textAlign,
@@ -17,9 +17,8 @@ class TextH3BoldPrimary extends StatelessWidget {
       child,
       textAlign: textAlign,
       style: TextStyle(
-        fontSize: Style.h3,
-        fontWeight: FontWeight.bold,
-        color: Style.primary,
+        fontSize: Style.textmd,
+        color: Style.grey600,
       ),
     );
   }
