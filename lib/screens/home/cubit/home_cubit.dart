@@ -6,7 +6,6 @@ import 'package:picture_learning/models/services/game_service.dart';
 import 'package:picture_learning/models/services/local_service.dart';
 import 'package:picture_learning/models/status.dart';
 import 'package:picture_learning/models/user/user.dart';
-
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -25,7 +24,10 @@ class HomeCubit extends Cubit<HomeState> {
       ));
 
       final user = await localService.getUser();
-      final fields = await gameService.getFields(user.facultyId!);
+      List<Field> fields = await gameService.getFields(user.facultyId!);
+      fields = fields.where((field) {
+        return field.topics?.isNotEmpty ?? false;
+      }).toList();
 
       emit(state.copyWith(
         user: user,

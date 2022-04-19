@@ -15,7 +15,7 @@ class GameAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   final String? name;
   final bool musicActive;
-  final Function() musicControl;
+  final Function()? musicControl;
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +40,7 @@ class GameAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         // Music/Mute button
         IconButton(
-          onPressed: () {
-            musicControl();
-          },
+          onPressed: musicControl,
           icon: Icon(
             musicActive ? Icons.volume_up_rounded : Icons.volume_off_rounded,
           ),

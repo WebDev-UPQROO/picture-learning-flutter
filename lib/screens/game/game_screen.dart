@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/models/game/index.dart';
 import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
+import 'package:picture_learning/utils/game.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
 import 'widgets/index.dart';
 
@@ -28,7 +29,8 @@ class GameScreen extends StatelessWidget {
       appBar: GameAppbar(
         name: game.name,
         musicActive: watch.backgroundMusic,
-        musicControl: read.musicControl,
+        musicControl:
+            isPlaying(watch.progressStatus) ? read.musicControl : null,
       ),
 
       // Game Screen
