@@ -44,7 +44,7 @@ class GameImage extends StatelessWidget {
                 fit: BoxFit.cover,
                 errorBuilder: (BuildContext context, Object exception,
                     StackTrace? stackTrace) {
-                  return const Text('😢');
+                  return defaultImage;
                 },
               )
             : defaultImage,
