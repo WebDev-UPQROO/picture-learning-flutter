@@ -40,10 +40,7 @@ class SuccessScreen extends StatelessWidget {
       title: "Felicidades",
       description: "Has completado el nivel",
       onPressed: () {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          RoutesHome.home,
-          (route) => false,
-        );
+        Navigator.of(context).pop();
       },
     );
   }

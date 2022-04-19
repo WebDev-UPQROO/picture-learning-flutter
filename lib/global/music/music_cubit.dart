@@ -16,19 +16,21 @@ class MusicCubit extends Cubit<MusicState> {
 
   // Activate the background music if the user has allowed it in settings
   void playMusic(String url, [bool active = false]) async {
-    // Get controller and pause any active background music
-    AudioPlayer music = state.backgroundMusic;
-    await music.stop();
+    try {
+      // Get controller and pause any active background music
+      AudioPlayer music = state.backgroundMusic;
+      await music.stop();
 
-    // Obtain user preferences
-    final isActive = await localService.getBackgroundMusic();
+      // Obtain user preferences
+      final isActive = await localService.getBackgroundMusic();
 
-    if (active || isActive) {
-      // If the user allows it, it gets the music from the assets and leaves it in "loop"
-      final soundbytes = await assetToMusic(url);
-      await music.setReleaseMode(ReleaseMode.LOOP);
-      await music.playBytes(soundbytes);
-    }
+      if (active || isActive) {
+        // If the user allows it, it gets the music from the assets and leaves it in "loop"
+        final soundbytes = await assetToMusic(url);
+        await music.setReleaseMode(ReleaseMode.LOOP);
+        await music.playBytes(soundbytes);
+      }
+    } catch (_) {}
   }
 
   void stopMusic() async {

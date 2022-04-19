@@ -26,7 +26,8 @@ class GameConsumer extends StatefulWidget {
 }
 
 class _GameConsumerState extends State<GameConsumer> {
-  late final Timer timer;
+  Timer? timer;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<GameCubit, GameState>(
@@ -47,7 +48,7 @@ class _GameConsumerState extends State<GameConsumer> {
 
           case Status.finished:
             Navigator.of(context).pop();
-            Navigator.of(context).pushNamed(
+            Navigator.of(context).pushReplacementNamed(
               RoutesGame.wrong,
               arguments: ResultsUI(
                 score: state.correctAnswers,
@@ -58,7 +59,7 @@ class _GameConsumerState extends State<GameConsumer> {
 
           case Status.validated:
             Navigator.of(context).pop();
-            Navigator.of(context).pushNamed(
+            Navigator.of(context).pushReplacementNamed(
               RoutesGame.success,
               arguments: ResultsUI(
                 score: state.correctAnswers,
@@ -69,7 +70,7 @@ class _GameConsumerState extends State<GameConsumer> {
 
           case Status.saving:
             Navigator.of(context).pop();
-            Navigator.of(context).pushNamed(
+            Navigator.of(context).pushReplacementNamed(
               RoutesGame.success,
               arguments: ResultsUI(
                 score: state.correctAnswers,
@@ -97,44 +98,47 @@ class _GameConsumerState extends State<GameConsumer> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       await context.read<GameCubit>().getGame(widget.uid);
-
       context.read<GameCubit>().updateMusic();
 
       await Future.delayed(const Duration(milliseconds: 600));
 
-      // Star and show first text
-      int index = 0;
-      var messageInitial = gameInitial[index];
-      context.read<GameCubit>().startGame(
-            messageInitial: messageInitial,
-          );
+      if (mounted) {
+        // Star and show first text
+        int index = 0;
+        var messageInitial = gameInitial[index];
+        context.read<GameCubit>().startGame(
+              messageInitial: messageInitial,
+            );
 
-      // every secnd show next text
-      timer = Timer.periodic(
-        const Duration(seconds: 1),
-        (timer) {
-          index = index + 1;
-          messageInitial = gameInitial[index];
+        // every secnd show next text
+        timer = Timer.periodic(
+          const Duration(seconds: 1),
+          (timer) {
+            index = index + 1;
+            messageInitial = gameInitial[index];
 
-          context.read<GameCubit>().startGame(
-                messageInitial: messageInitial,
-              );
-
-          // If all the text was displayed, the game starts
-          if (index == gameInitial.length - 1) {
             context.read<GameCubit>().startGame(
-                  progressStatus: ProgressStatus.playing,
+                  messageInitial: messageInitial,
                 );
-            timer.cancel();
-          }
-        },
-      );
+
+            // If all the text was displayed, the game starts
+            if (index == gameInitial.length - 1) {
+              context.read<GameCubit>().startGame(
+                    progressStatus: ProgressStatus.playing,
+                  );
+              timer.cancel();
+            }
+          },
+        );
+      }
     });
   }
 
   @override
   void dispose() {
-    timer.cancel();
+    if (timer != null) {
+      timer!.cancel();
+    }
     super.dispose();
   }
 }

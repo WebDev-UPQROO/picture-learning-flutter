@@ -15,6 +15,7 @@ class GameState {
   int gameIndex;
   ProgressStatus progressStatus;
   bool erroreffect;
+  bool optionIsActive;
 
   Status status;
   MessageUI? message;
@@ -28,6 +29,7 @@ class GameState {
     this.gameIndex = 0,
     required this.progressStatus,
     this.erroreffect = false,
+    this.optionIsActive = true,
     required this.status,
     this.message,
   });
@@ -48,6 +50,7 @@ class GameState {
     int? gameIndex,
     ProgressStatus? progressStatus,
     bool? erroreffect,
+    bool? optionIsActive,
     Status? status,
     MessageUI? message,
   }) {
@@ -60,6 +63,7 @@ class GameState {
       gameIndex: gameIndex ?? this.gameIndex,
       progressStatus: progressStatus ?? this.progressStatus,
       erroreffect: erroreffect ?? this.erroreffect,
+      optionIsActive: optionIsActive ?? this.optionIsActive,
       status: status ?? this.status,
       message: message ?? this.message,
     );

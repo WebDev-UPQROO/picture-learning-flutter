@@ -56,7 +56,7 @@ class GameScreen extends StatelessWidget {
                     const Spacer(),
                     GameImage(
                       question: question,
-                      progressStatus: watch.progressStatus,
+                      isActive: isPlaying(watch.progressStatus),
                       errorEnable: watch.erroreffect,
                     ),
 
@@ -64,7 +64,8 @@ class GameScreen extends StatelessWidget {
                     const Spacer(),
                     GameButtons(
                       question: question,
-                      progressStatus: watch.progressStatus,
+                      isActive: isPlaying(watch.progressStatus) &&
+                          watch.optionIsActive,
                     ),
                     const Spacer(),
                   ],

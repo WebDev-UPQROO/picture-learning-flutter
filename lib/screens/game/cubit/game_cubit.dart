@@ -76,12 +76,14 @@ class GameCubit extends Cubit<GameState> {
       emit(state.copyWith(
         progressStatus: ProgressStatus.correct,
         correctAnswers: state.correctAnswers + 1,
+        optionIsActive: false,
       ));
       musicCubit.playeffect(state.success);
     } else {
       emit(state.copyWith(
         progressStatus: ProgressStatus.wrong,
         erroreffect: true,
+        optionIsActive: false,
       ));
       musicCubit.playeffect(state.wrong);
     }
@@ -100,6 +102,7 @@ class GameCubit extends Cubit<GameState> {
         progressStatus: ProgressStatus.playing,
         gameIndex: state.gameIndex + 1,
         erroreffect: false,
+        optionIsActive: true,
       ));
     }
   }

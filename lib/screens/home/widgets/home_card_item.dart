@@ -10,11 +10,13 @@ class HomeCardItem extends StatelessWidget {
     required this.topic,
     required this.isPerfect,
     required this.pressEffect,
+    this.gameFinished,
   }) : super(key: key);
 
   final Topic topic;
   final bool isPerfect;
   final Function() pressEffect;
+  final Function()? gameFinished;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,11 @@ class HomeCardItem extends StatelessWidget {
               uid: topic.uid!,
               name: topic.name,
             ),
-          );
+          ).then((value) {
+            if (gameFinished != null) {
+              gameFinished!();
+            }
+          });
         },
         borderRadius: BorderRadius.circular(100),
         child: Stack(

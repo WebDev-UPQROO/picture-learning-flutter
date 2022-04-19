@@ -1,18 +1,16 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
-
 import 'package:picture_learning/models/game/index.dart';
-import 'package:picture_learning/utils/game.dart';
 
 class GameImage extends StatelessWidget {
   const GameImage({
     Key? key,
-    required this.progressStatus,
+    required this.isActive,
     required this.errorEnable,
     required this.question,
   }) : super(key: key);
 
-  final ProgressStatus progressStatus;
+  final bool isActive;
   final bool errorEnable;
   final Exercise? question;
 
@@ -31,7 +29,7 @@ class GameImage extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
-        child: isPlaying(progressStatus)
+        child: isActive
             ? Image.network(
                 question!.image!,
                 height: size.height * 0.3,

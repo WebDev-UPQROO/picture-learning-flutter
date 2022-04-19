@@ -9,11 +9,11 @@ class GameButtons extends StatelessWidget {
   const GameButtons({
     Key? key,
     required this.question,
-    required this.progressStatus,
+    required this.isActive,
   }) : super(key: key);
 
   final Exercise? question;
-  final ProgressStatus progressStatus;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class GameButtons extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final option = question?.options?[index];
         return GameButtonsItem(
-          progressStatus: progressStatus,
+          isActive: isActive,
           option: option,
           onPressed: () => context.read<GameCubit>().pressOption(option!),
         );

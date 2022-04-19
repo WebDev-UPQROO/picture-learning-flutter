@@ -66,6 +66,9 @@ class HomeScreen extends StatelessWidget {
                                   topic.uid,
                                 ),
                                 pressEffect: pressEffect,
+                                gameFinished: () {
+                                  context.read<HomeCubit>().getHome();
+                                },
                               );
                             }).toList() ??
                             [],

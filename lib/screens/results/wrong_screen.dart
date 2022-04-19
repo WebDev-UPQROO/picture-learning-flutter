@@ -41,10 +41,7 @@ class WrongScreen extends StatelessWidget {
       title: "No te desanimes",
       description: "Vuelve a intentarlos",
       onPressed: () {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          RoutesHome.home,
-          (route) => false,
-        );
+        Navigator.of(context).pop();
       },
     );
   }
