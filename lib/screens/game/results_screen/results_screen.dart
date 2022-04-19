@@ -3,8 +3,6 @@ import 'package:picture_learning/constants/style.dart';
 import 'package:picture_learning/widgets/gaps/gap_04.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
 
-import '../../../routes.dart';
-
 //for storing form state.
 class ResultsScreen extends StatelessWidget {
   ResultsScreen({Key? key}) : super(key: key);
@@ -66,11 +64,7 @@ class ResultsScreen extends StatelessWidget {
               'It seems that you have not managed \nto complete the level, keep practicing.',
           onPressButton: () {
             //context.read<LocalService>().putFirstTime();
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              Routes.loginOAuth,
-              (Route<dynamic> route) => false,
-            );
+            
           },
         )
       ]),
