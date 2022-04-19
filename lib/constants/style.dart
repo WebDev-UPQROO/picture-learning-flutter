@@ -19,6 +19,7 @@ class Style {
   static Color success = const Color(0xFF149B53);
   static Color alert = const Color(0xFFCFFD00);
   static Color danger = const Color(0xFF9B1D14);
+  static Color wrong = const Color(0xFFB25B5B);
 
   static Color shadow = const Color(0xFFCCCCCC).withOpacity(0.5);
 

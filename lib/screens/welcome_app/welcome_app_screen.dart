@@ -8,6 +8,7 @@ import 'widgets/index.dart';
 class WelcomeAppScreen extends StatelessWidget {
   WelcomeAppScreen({Key? key}) : super(key: key);
 
+  //Remove splash screen from reappearing for first time and close the screen
   void closeWelcomeScreen(BuildContext context) {
     context.read<LocalService>().putFirstTime();
 
@@ -35,6 +36,7 @@ class WelcomeAppScreen extends StatelessWidget {
           descText:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
           onPressButton: () {
+            //Go to the next page of the pageview
             _pageController.animateToPage(_pageController.page!.toInt() + 1,
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeIn);
@@ -50,14 +52,7 @@ class WelcomeAppScreen extends StatelessWidget {
           titleText: 'Picture Learning',
           descText:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
-          onPressButton: () {
-            context.read<LocalService>().putFirstTime();
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RoutesAuth.loginOAuth,
-              (Route<dynamic> route) => false,
-            );
-          },
+          onPressButton: () => closeWelcomeScreen(context),
           onPressedClose: () => closeWelcomeScreen(context),
         )
       ]),
