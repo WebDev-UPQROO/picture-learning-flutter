@@ -1,23 +1,22 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/style.dart';
+import 'package:picture_learning/models/game/field.dart';
+import 'package:picture_learning/screens/home/cubit/home_cubit.dart';
 import 'package:picture_learning/utils/nullable.dart';
 
 class HomeCard extends StatefulWidget {
   const HomeCard({
     Key? key,
     required this.isPerfect,
-    required this.image,
-    required this.subtitle,
-    required this.title,
+    required this.field,
     required this.exercises,
     required this.pressEffect,
   }) : super(key: key);
 
+  final Field? field;
   final bool isPerfect;
-  final String? image;
-  final String? subtitle;
-  final String? title;
   final List<Widget>? exercises;
   final Function() pressEffect;
 
@@ -45,6 +44,17 @@ class _HomeCardState extends State<HomeCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final user = context.watch<HomeCubit>().state.user;
+
+    final topics = widget.field?.topics?.length ?? 0;
+    final completed = widget.field?.topics?.where(
+          (element) {
+            final equal = user?.perfectTopics?.contains(element.uid);
+            return equal ?? false;
+          },
+        ).length ??
+        0;
+
     return SizedBox(
       width: size.width,
       child: Padding(
@@ -74,8 +84,8 @@ class _HomeCardState extends State<HomeCard> {
                       margin: const EdgeInsets.all(24),
                       width: 80,
                       height: 80,
-                      child: isNotEmpty(widget.image)
-                          ? Image.network(widget.image!)
+                      child: isNotEmpty(widget.field?.image)
+                          ? Image.network(widget.field!.image!)
                           : Image.asset('assets/img/card_icon.png'),
                     ),
 
@@ -83,7 +93,9 @@ class _HomeCardState extends State<HomeCard> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(getString(widget.subtitle)),
+                        Text(
+                          maxString(widget.field?.description, 20),
+                        ),
                         const SizedBox(
                           width: 40,
                           child: Divider(
@@ -92,10 +104,17 @@ class _HomeCardState extends State<HomeCard> {
                           ),
                         ),
                         Text(
-                          getString(widget.title),
+                          getString(widget.field?.name),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: Style.h4,
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Completados: ${getString(completed)} / ${getString(topics)}',
+                          style: TextStyle(
+                            fontSize: Style.textsm,
                           ),
                         ),
                       ],
@@ -143,5 +162,11 @@ class _HomeCardState extends State<HomeCard> {
         ),
       ),
     );
+  }
+
+  String maxString(String? text, int maxLength) {
+    return (text?.length ?? 1) > maxLength
+        ? '${text?.substring(0, maxLength)}...'
+        : getString(text);
   }
 }

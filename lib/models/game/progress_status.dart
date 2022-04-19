@@ -4,4 +4,5 @@ enum ProgressStatus {
   correct,
   wrong,
   finished,
+  saving,
 }

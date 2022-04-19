@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:picture_learning/constants/api.dart';
 import 'package:picture_learning/models/game/index.dart';
 import 'package:picture_learning/models/response_api.dart';
 import 'package:picture_learning/models/services/game_service.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:picture_learning/models/user/user.dart';
 
 class GameServ implements GameService {
   final http.Client httpClient = http.Client();
@@ -30,5 +33,15 @@ class GameServ implements GameService {
     return (ResponseAPI.getData(response) as List)
         .map((item) => Exercise.fromMap(item))
         .toList();
+  }
+
+  @override
+  Future<User> putGame(String uid, List<String> uidTopics) async {
+    final response = await httpClient.put(
+      Uri.parse('${API.user}/topics/$uid'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(uidTopics),
+    );
+    return User.fromMap(ResponseAPI.getData(response));
   }
 }

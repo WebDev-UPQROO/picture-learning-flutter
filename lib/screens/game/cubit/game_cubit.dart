@@ -75,6 +75,7 @@ class GameCubit extends Cubit<GameState> {
     if (option == state.exercises?[state.gameIndex].answer) {
       emit(state.copyWith(
         progressStatus: ProgressStatus.correct,
+        correctAnswers: state.correctAnswers + 1,
       ));
       musicCubit.playeffect(state.success);
     } else {
@@ -89,7 +90,9 @@ class GameCubit extends Cubit<GameState> {
 
     if (!isClosed) {
       if (state.gameIndex >= state.exercises!.length - 1) {
-        emit(state.copyWith(progressStatus: ProgressStatus.finished));
+        emit(state.copyWith(
+          progressStatus: ProgressStatus.finished,
+        ));
         return;
       }
 
@@ -101,7 +104,44 @@ class GameCubit extends Cubit<GameState> {
     }
   }
 
-  void finishGame() {
-    emit(state.copyWith(progressStatus: ProgressStatus.finished));
+  void finishGame() async {
+    try {
+      emit(state.copyWith(
+        status: Status.loading,
+        progressStatus: ProgressStatus.saving,
+      ));
+
+      final exercisesLength = state.exercises?.length ?? 0;
+
+      if (state.correctAnswers < exercisesLength * 0.7) {
+        emit(state.copyWith(
+          status: Status.finished,
+        ));
+        return;
+      }
+
+      final user = await localService.getUser();
+      final newUser = await gameService.putGame(user.uid!, [state.uid!]);
+
+      final fields = user.perfectFields?.length ?? 0;
+      final newFields = newUser.perfectFields?.length ?? 0;
+
+      localService.putUser(newUser);
+
+      if (newFields > fields) {
+        emit(state.copyWith(
+          status: Status.saving,
+        ));
+      } else {
+        emit(state.copyWith(
+          status: Status.validated,
+        ));
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        status: Status.error,
+        message: ErrorC.errorHandler(e),
+      ));
+    }
   }
 }

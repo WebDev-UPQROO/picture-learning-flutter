@@ -10,6 +10,7 @@ class GameState {
   String? mesageInitial;
   List<Exercise>? exercises;
   bool backgroundMusic;
+  int correctAnswers;
 
   int gameIndex;
   ProgressStatus progressStatus;
@@ -23,6 +24,7 @@ class GameState {
     this.mesageInitial,
     this.exercises,
     required this.backgroundMusic,
+    this.correctAnswers = 0,
     this.gameIndex = 0,
     required this.progressStatus,
     this.erroreffect = false,
@@ -42,6 +44,7 @@ class GameState {
     String? mesageInitial,
     List<Exercise>? exercises,
     bool? backgroundMusic,
+    int? correctAnswers,
     int? gameIndex,
     ProgressStatus? progressStatus,
     bool? erroreffect,
@@ -53,6 +56,7 @@ class GameState {
       mesageInitial: mesageInitial ?? this.mesageInitial,
       exercises: exercises ?? this.exercises,
       backgroundMusic: backgroundMusic ?? this.backgroundMusic,
+      correctAnswers: correctAnswers ?? this.correctAnswers,
       gameIndex: gameIndex ?? this.gameIndex,
       progressStatus: progressStatus ?? this.progressStatus,
       erroreffect: erroreffect ?? this.erroreffect,

@@ -6,11 +6,11 @@ class HomeResumen extends StatelessWidget {
   const HomeResumen({
     Key? key,
     required this.perfectFields,
-    required this.perfectLevels,
+    required this.perfectTopics,
   }) : super(key: key);
 
   final int? perfectFields;
-  final int? perfectLevels;
+  final int? perfectTopics;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class HomeResumen extends StatelessWidget {
             style: TextStyle(color: foregroundColor),
           ),
           Text(
-            getString(perfectLevels),
+            getString(perfectTopics),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: foregroundColor,

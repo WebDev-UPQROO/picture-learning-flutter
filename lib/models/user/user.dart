@@ -2,6 +2,7 @@ class User {
   User({
     this.username,
     this.email,
+    this.perfectTopics,
     this.perfectFields,
     this.perfectLevels,
     this.uid,
@@ -10,6 +11,7 @@ class User {
 
   final String? username;
   final String? email;
+  final List<String>? perfectTopics;
   final List<String>? perfectFields;
   final List<String>? perfectLevels;
   final String? uid;
@@ -18,6 +20,7 @@ class User {
   User copyWith({
     String? username,
     String? email,
+    List<String>? perfectTopics,
     List<String>? perfectFields,
     List<String>? perfectLevels,
     String? uid,
@@ -26,6 +29,7 @@ class User {
       User(
         username: username ?? this.username,
         email: email ?? this.email,
+        perfectTopics: perfectTopics ?? this.perfectTopics,
         perfectFields: perfectFields ?? this.perfectFields,
         perfectLevels: perfectLevels ?? this.perfectLevels,
         uid: uid ?? this.uid,
@@ -36,6 +40,9 @@ class User {
         username: json["username"],
         email: json["email"],
         facultyId: json["facultyId"],
+        perfectTopics: json["perfect_topics"] == null
+            ? null
+            : List<String>.from(json["perfect_topics"].map((x) => x)),
         perfectFields: json["perfect_fields"] == null
             ? null
             : List<String>.from(json["perfect_fields"].map((x) => x)),
@@ -49,6 +56,9 @@ class User {
         "username": username,
         "email": email,
         "facultyId": facultyId,
+        "perfect_topics": perfectTopics == null
+            ? null
+            : List<dynamic>.from(perfectTopics!.map((x) => x)),
         "perfect_fields": perfectFields == null
             ? null
             : List<dynamic>.from(perfectFields!.map((x) => x)),

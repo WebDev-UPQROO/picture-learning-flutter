@@ -20,7 +20,7 @@ class GameButtonsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isPlaying(progressStatus) ? onPressed : null,
       child: TextH4BoldGrey800(
         isPlaying(progressStatus) ? getString(option) : '??',
       ),

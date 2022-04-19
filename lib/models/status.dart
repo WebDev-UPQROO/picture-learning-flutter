@@ -4,6 +4,7 @@ enum Status {
   loaded,
   validated,
   finished,
+  saving,
   error,
   errorStatic,
 }

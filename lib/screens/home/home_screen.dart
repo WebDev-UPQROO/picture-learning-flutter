@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             HomeResumen(
               perfectFields: user?.perfectFields?.length,
-              perfectLevels: user?.perfectLevels?.length,
+              perfectTopics: user?.perfectTopics?.length,
             ),
 
             // Cards list
@@ -52,20 +52,18 @@ class HomeScreen extends StatelessWidget {
 
                       // Card Item
                       return HomeCard(
-                        image: field?.image,
+                        field: field,
                         isPerfect: isPerfect(
                           user?.perfectFields,
                           field?.uid,
                         ),
-                        subtitle: maxString(field?.description, 20),
-                        title: field?.name,
 
                         // Level Item
                         exercises: field?.topics?.map((topic) {
                               return HomeCardItem(
                                 topic: topic,
                                 isPerfect: isPerfect(
-                                  user?.perfectLevels,
+                                  user?.perfectTopics,
                                   topic.uid,
                                 ),
                                 pressEffect: pressEffect,
@@ -98,10 +96,4 @@ class HomeScreen extends StatelessWidget {
 
   bool isPerfect(List<String>? perfect, String? uid) =>
       perfect?.contains(uid) ?? false;
-
-  String maxString(String? text, int maxLength) {
-    return (text?.length ?? 1) > maxLength
-        ? '${text?.substring(0, maxLength)}...'
-        : getString(text);
-  }
 }
