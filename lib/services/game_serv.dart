@@ -16,7 +16,7 @@ class GameServ implements GameService {
     final response = await httpClient.get(
       Uri.parse('${API.home}/faculty/$faculty'),
       headers: {'Content-Type': 'application/json'},
-    );
+    ).timeout(API.timeout);
 
     return (ResponseAPI.getData(response) as List)
         .map((item) => Field.fromMap(item))
@@ -28,7 +28,7 @@ class GameServ implements GameService {
     final response = await httpClient.get(
       Uri.parse('${API.home}/exercises/$topicId'),
       headers: {'Content-Type': 'application/json'},
-    );
+    ).timeout(API.timeout);
 
     return (ResponseAPI.getData(response) as List)
         .map((item) => Exercise.fromMap(item))
@@ -37,11 +37,14 @@ class GameServ implements GameService {
 
   @override
   Future<User> putGame(String uid, List<String> uidTopics) async {
-    final response = await httpClient.put(
-      Uri.parse('${API.user}/topics/$uid'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(uidTopics),
-    );
+    final response = await httpClient
+        .put(
+          Uri.parse('${API.user}/topics/$uid'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(uidTopics),
+        )
+        .timeout(API.timeout);
+
     return User.fromMap(ResponseAPI.getData(response));
   }
 }

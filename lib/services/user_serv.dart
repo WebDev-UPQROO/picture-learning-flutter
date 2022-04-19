@@ -13,15 +13,17 @@ class UserServ implements UserService {
     String email,
     String password,
   ) async {
-    final response = await httpClient.post(
-      Uri.parse('${API.user}/register/62488ef3a780e9be1149cdd7'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "email": email.trim(),
-        "username": username.trim(),
-        "password": password.trim(),
-      }),
-    );
+    final response = await httpClient
+        .post(
+          Uri.parse('${API.user}/register/62488ef3a780e9be1149cdd7'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            "email": email.trim(),
+            "username": username.trim(),
+            "password": password.trim(),
+          }),
+        )
+        .timeout(API.timeout);
 
     ResponseAPI.getData(response);
   }
@@ -31,13 +33,15 @@ class UserServ implements UserService {
     String uid,
     String username,
   ) async {
-    final response = await httpClient.put(
-      Uri.parse('${API.user}/username/$uid'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "username": username.trim(),
-      }),
-    );
+    final response = await httpClient
+        .put(
+          Uri.parse('${API.user}/username/$uid'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            "username": username.trim(),
+          }),
+        )
+        .timeout(API.timeout);
 
     ResponseAPI.getData(response);
   }
@@ -48,28 +52,32 @@ class UserServ implements UserService {
     String password,
     String newPassword,
   ) async {
-    final response = await httpClient.put(
-      Uri.parse('${API.user}/password/$uid'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "password": password.trim(),
-        "newPassword": newPassword.trim(),
-      }),
-    );
+    final response = await httpClient
+        .put(
+          Uri.parse('${API.user}/password/$uid'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            "password": password.trim(),
+            "newPassword": newPassword.trim(),
+          }),
+        )
+        .timeout(API.timeout);
 
     ResponseAPI.getData(response);
   }
 
   @override
   Future<void> postFeed(String comments, int stars) async {
-    await httpClient.post(
-      Uri.parse('${API.user}/feedback'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "title": "Review",
-        "feed": comments,
-        "score": stars,
-      }),
-    );
+    await httpClient
+        .post(
+          Uri.parse('${API.user}/feedback'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            "title": "Review",
+            "feed": comments,
+            "score": stars,
+          }),
+        )
+        .timeout(API.timeout);
   }
 }

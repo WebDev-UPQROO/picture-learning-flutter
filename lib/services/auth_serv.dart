@@ -12,14 +12,16 @@ class AuthServ implements AuthService {
 
   @override
   Future<User> loginEmail(String email, String password) async {
-    final response = await httpClient.post(
-      Uri.parse('${API.auth}/login'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        "email": email.trim(),
-        "password": password.trim(),
-      }),
-    );
+    final response = await httpClient
+        .post(
+          Uri.parse('${API.auth}/login'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            "email": email.trim(),
+            "password": password.trim(),
+          }),
+        )
+        .timeout(API.timeout);
 
     return User.fromMap(ResponseAPI.getData(response));
   }
@@ -44,11 +46,13 @@ class AuthServ implements AuthService {
         await googleUser.authentication;
 
     // The token is sent to the back
-    final response = await httpClient.post(
-      Uri.parse('${API.auth}/google'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({"id_token": autenticated.idToken}),
-    );
+    final response = await httpClient
+        .post(
+          Uri.parse('${API.auth}/google'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({"id_token": autenticated.idToken}),
+        )
+        .timeout(API.timeout);
 
     // Google log out
     await GoogleSignIn().signOut();
