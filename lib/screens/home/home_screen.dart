@@ -5,7 +5,6 @@ import 'package:picture_learning/global/music/music_cubit.dart';
 import 'package:picture_learning/screens/home/cubit/home_cubit.dart';
 import 'package:picture_learning/screens/home/widgets/home_card_item.dart';
 import 'package:picture_learning/screens/home/widgets/home_resumen.dart';
-import 'package:picture_learning/utils/nullable.dart';
 import 'package:picture_learning/widgets/painters/painer_curve.dart';
 import 'widgets/home_card.dart';
 import 'widgets/index.dart';

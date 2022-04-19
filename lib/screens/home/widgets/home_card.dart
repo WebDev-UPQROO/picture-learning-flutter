@@ -110,7 +110,7 @@ class _HomeCardState extends State<HomeCard> {
                             fontSize: Style.h4,
                           ),
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Text(
                           'Completados: ${getString(completed)} / ${getString(topics)}',
                           style: TextStyle(

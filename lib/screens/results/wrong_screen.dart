@@ -30,7 +30,7 @@ class WrongScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Image.asset(
           'assets/img/facepalm_results.png',
           height: size.height * 0.25,
