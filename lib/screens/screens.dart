@@ -33,3 +33,6 @@ export 'game/game_consumer.dart';
 export 'settings_screen/settings_screen.dart';
 export 'settings_screen/cubit/settings_cubit.dart';
 export 'settings_screen/settings_consumer.dart';
+
+export 'results/success_screen.dart';
+export 'results/wrong_screen.dart';

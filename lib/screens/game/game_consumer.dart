@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picture_learning/constants/lang.dart';
 import 'package:picture_learning/models/game/index.dart';
+import 'package:picture_learning/models/game/results_ui.dart';
 import 'package:picture_learning/routes/index.dart';
 import 'package:picture_learning/screens/game/cubit/game_cubit.dart';
 import 'package:picture_learning/screens/game/game_data.dart';
@@ -46,28 +47,34 @@ class _GameConsumerState extends State<GameConsumer> {
 
           case Status.finished:
             Navigator.of(context).pop();
-            print('no pasó');
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              RoutesHome.home,
-              (route) => false,
+            Navigator.of(context).pushNamed(
+              RoutesGame.wrong,
+              arguments: ResultsUI(
+                score: state.correctAnswers,
+                total: state.exercises?.length ?? 0,
+              ),
             );
             break;
 
           case Status.validated:
             Navigator.of(context).pop();
-            print('pasó');
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              RoutesHome.home,
-              (route) => false,
+            Navigator.of(context).pushNamed(
+              RoutesGame.success,
+              arguments: ResultsUI(
+                score: state.correctAnswers,
+                total: state.exercises?.length ?? 0,
+              ),
             );
             break;
 
           case Status.saving:
             Navigator.of(context).pop();
-            print('ganó');
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              RoutesHome.home,
-              (route) => false,
+            Navigator.of(context).pushNamed(
+              RoutesGame.success,
+              arguments: ResultsUI(
+                score: state.correctAnswers,
+                total: state.exercises?.length ?? 0,
+              ),
             );
             break;
 

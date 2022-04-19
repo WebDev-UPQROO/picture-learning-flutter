@@ -34,6 +34,10 @@ class Routes {
       // Game
       case RoutesGame.game:
         return RoutesGame.gameScreen(settings);
+      case RoutesGame.success:
+        return RoutesGame.successScreen(settings);
+      case RoutesGame.wrong:
+        return RoutesGame.wrongScreen(settings);
 
       default:
         return MaterialPageRoute(builder: (_) => const LoginOAuthScreen());
