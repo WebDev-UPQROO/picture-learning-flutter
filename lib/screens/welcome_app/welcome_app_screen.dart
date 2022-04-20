@@ -34,7 +34,7 @@ class WelcomeAppScreen extends StatelessWidget {
           onRight: 0.15,
           titleText: 'Bienvenido',
           descText:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
+              'Aprende nuevas palabras en ingles con solo ver, enfócate en el vocabulario de un área especifica de trabajo o estudio y supera todos los niveles que tenemos disponibles para ti.',
           onPressButton: () {
             //Go to the next page of the pageview
             _pageController.animateToPage(_pageController.page!.toInt() + 1,
@@ -45,13 +45,13 @@ class WelcomeAppScreen extends StatelessWidget {
         ),
         WelcomePage(
           imgOnTop: Image.asset(
-            'assets/img/welcome_icon.png',
+            'assets/img/screen_example.png',
             height: size.height * 0.47,
           ),
-          onRight: 0.24,
+          onRight: 0.26,
           titleText: 'Picture Learning',
           descText:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus tempus diam non varius. Aenean imperdiet consectetur lorem.',
+              'Jugar Picture Learning es muy sencillo, solo dale click a la opcion que creas correcta, no olvides medir tu tiempo. Mucha suerte 😉',
           onPressButton: () => closeWelcomeScreen(context),
           onPressedClose: () => closeWelcomeScreen(context),
         )
