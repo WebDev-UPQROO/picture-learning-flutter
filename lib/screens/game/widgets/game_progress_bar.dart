@@ -16,7 +16,7 @@ class _GameProgressbarState extends State<GameProgressbar>
     with TickerProviderStateMixin {
   late final AnimationController controller = AnimationController(
     value: 1,
-    duration: const Duration(minutes: 50),
+    duration: const Duration(seconds: 50),
     vsync: this,
   );
 
