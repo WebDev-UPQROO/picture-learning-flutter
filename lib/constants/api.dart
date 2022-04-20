@@ -1,8 +1,7 @@
 // Used to build endpoints
 class API {
   // API Base
-  static const String base =
-      'https://843a-2806-2f0-8080-6ea-18cf-f470-b7de-f41a.ngrok.io';
+  static const String base = 'https://picture-learning.herokuapp.com';
   static const String api = 'api';
 
   // API Services
