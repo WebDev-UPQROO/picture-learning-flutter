@@ -37,7 +37,7 @@ class SuccessScreen extends StatelessWidget {
       total: getString(results.total),
       score: getString(results.score),
       title: "Felicidades",
-      description: "Has completado el nivel",
+      description: "Has completado el nivel con una muy buena puntuacion, sigue asi!",
       onPressed: () {
         Navigator.of(context).pop();
       },

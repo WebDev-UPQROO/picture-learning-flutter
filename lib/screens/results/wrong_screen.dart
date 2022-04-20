@@ -21,7 +21,7 @@ class WrongScreen extends StatelessWidget {
       color: Style.danger,
       images: [
         Text(
-          'Game Over',
+          'Perdiste',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 36,
@@ -38,7 +38,7 @@ class WrongScreen extends StatelessWidget {
       score: getString(results.score),
       total: getString(results.total),
       title: "No te desanimes",
-      description: "Vuelve a intentarlos",
+      description: "Tu puntuacion es baja para pasar al siguiente nivel pero relax tomate tu tiempo, tu puedes!",
       onPressed: () {
         Navigator.of(context).pop();
       },
