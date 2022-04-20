@@ -25,9 +25,9 @@ class HomeCubit extends Cubit<HomeState> {
 
       final user = await localService.getUser();
       List<Field> fields = await gameService.getFields(user.facultyId!);
-      fields = fields.where((field) {
-        return field.topics?.isNotEmpty ?? false;
-      }).toList();
+      // fields = fields.where((field) {
+      //   return field.topics?.isNotEmpty ?? false;
+      // }).toList();
 
       emit(state.copyWith(
         user: user,

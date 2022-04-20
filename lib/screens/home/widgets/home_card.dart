@@ -141,12 +141,14 @@ class _HomeCardState extends State<HomeCard> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       width: size.width,
-                      child: Wrap(
-                        runSpacing: 20,
-                        spacing: 20,
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: widget.exercises ?? [],
-                      ),
+                      child: (widget.exercises?.length ?? 0) > 0
+                          ? Wrap(
+                              runSpacing: 20,
+                              spacing: 20,
+                              alignment: WrapAlignment.spaceEvenly,
+                              children: widget.exercises ?? [],
+                            )
+                          : const Text('Mas niveles proximamente...'),
                     ),
                   ],
                 ),
