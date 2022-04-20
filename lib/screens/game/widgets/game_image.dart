@@ -37,18 +37,19 @@ class GameImage extends StatelessWidget {
           Radius.circular(20),
         ),
         child: isActive
-            ? FadeInImage(
-                placeholder: const AssetImage('assets/img/question.jpg'),
-                image: NetworkImage(
-                  question!.image!,
-                ),
-                imageErrorBuilder: (BuildContext context, Object exception,
+            ? Image.network(
+                question!.image!,
+                height: size.height * 0.3,
+                width: size.width,
+                fit: BoxFit.cover,
+                errorBuilder: (BuildContext context, Object exception,
                     StackTrace? stackTrace) {
                   return defaultImage;
                 },
-                fit: BoxFit.cover,
-                height: size.height * 0.3,
-                width: size.width,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return defaultImage;
+                },
               )
             : defaultImage,
       ),

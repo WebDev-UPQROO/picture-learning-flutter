@@ -141,10 +141,12 @@ class GameCubit extends Cubit<GameState> {
         ));
       }
     } catch (e) {
-      emit(state.copyWith(
-        status: Status.error,
-        message: ErrorC.errorHandler(e),
-      ));
+      if (!isClosed) {
+        emit(state.copyWith(
+          status: Status.error,
+          message: ErrorC.errorHandler(e),
+        ));
+      }
     }
   }
 }

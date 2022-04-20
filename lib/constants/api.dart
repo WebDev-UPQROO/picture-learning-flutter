@@ -11,5 +11,5 @@ class API {
   static const String feed = '$base/$api/feed';
 
   // Global connections timeout
-  static const Duration timeout = Duration(seconds: 5);
+  static const Duration timeout = Duration(seconds: 15);
 }
